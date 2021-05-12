@@ -1,6 +1,11 @@
 <div class="backdrop"></div>
 <header class="main-header">
-    <button id="side-menu-toggle">Menu</button>
+    <a href ="index.ejs" class="navbar-brand" id="navbarfontdeco">
+        <img src="/images/LogoWhite.png" alt="" width="30" height="24" >
+        El Paseo</a>
+    <button id="side-menu-toggle">Menu
+        <span class="navbar-toggler-icon"></span>
+    </button>
     <nav class="main-header__nav">
         <ul class="main-header__item-list">
             <li class="main-header__item">
@@ -24,6 +29,10 @@
                 </a>
             </li>
         </ul>
+        <form class="form-inline ml-auto">
+            <input type="text" class="form-control mr-2" placeholder="Search">
+            <button class="btn btn-primary"><i class="fas fa-search"></i> Search</button>
+        </form>
     </nav>
 </header>
 
