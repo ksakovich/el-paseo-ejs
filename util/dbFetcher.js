@@ -1,31 +1,42 @@
-const Request = require("tedious").Request;
-const connection = require('./dbConnector');
+const sql = require('mssql')
+const dotenv = require('dotenv');
+dotenv.config()
 
-connection.connect();
-
-let dbRespose;
-
-connection.on('connect', err =>
+class DbFetcher
 {
-    console.log("TRYING TO CONNECT TO DB");
-    err ? console.log(err) : dbRespose = executeStatement();
-});
-
-const query = 'SELECT * from items';
-const executeStatement = () =>
-{
-    console.log("RUNNING QUERY");
-    const request = new Request(query, (err, rowCount) =>
+    constructor()
     {
+        this.sql = require('mssql');
+        this.config = {
+            user: process.env.DB_USER,
+            password: process.env.DB_PASS,
+            database: process.env.DB_NAME,
+            server: process.env.DB_SERVER,
+            pool: {
+                max: 10,
+                min: 0,
+                idleTimeoutMillis: 30000
+            },
+            options: {
+                encrypt: true, // for azure
+                trustServerCertificate: false // change to true for local dev / self-signed certs
+            }
+        };
+    }
 
-        err ? console.log(err) : console.log(rowCount);
-    });
-
-    request.on('row', columns =>
+    async getAllItems()
     {
-        columns.forEach(column => console.log(column.value));
-    });
-
-    return connection.execSql(request);
+        try
+        {
+            await this.sql.connect(this.config);
+            console.log("TRYING TO CONNECT TO DB");
+            const result = await sql.query`SELECT TOP 10 * FROM items`
+            console.dir(result)
+        } catch (err)
+        {
+            console.log(err)
+        }
+    }
 };
-module.exports = dbRespose;
+
+module.exports = DbFetcher;

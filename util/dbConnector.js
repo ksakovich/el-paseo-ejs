@@ -1,26 +1,37 @@
-// const ConnectionPool = require('tedious-connection-pool');
-const Request = require("tedious").Request;
-const Connection = require('tedious').Connection;
-// const Connection = require('tedious-async').Connection;
+const sql = require('mssql')
 const dotenv = require('dotenv');
 
 dotenv.config();
 
-const connectionConfig = {
-    server: process.env.DB_SERVER,
-    authentication: {
-        options: {
-            userName: process.env.DB_USER,
-            password: process.env.DB_PASS
-        },
-        type: "default"
-    },
-    options: {
-        database: "el-paseoDB",
-        encrypt: true
-    }
-};
 
-const connection = new Connection(connectionConfig);
+const pool = new sql.ConnectionPool({
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    server: process.env.DB_NAME,
+    database: process.env.DB_SERVER,
+})
 
-module.exports = connection;
+
+//                 user: process.env.DB_USER,
+//                 password: process.env.DB_PASS,
+//                 database: process.env.DB_NAME,
+//                 server: process.env.DB_SERVER,
+// const connectionConfig = {
+//     server: process.env.DB_SERVER,
+//     authentication: {
+//         options: {
+//             userName: process.env.DB_USER,
+//             password: process.env.DB_PASS
+//         },
+//         type: "default"
+//     },
+//     options: {
+//         database: "el-paseoDB",
+//         encrypt: true
+//     }
+// };
+
+// const connection = new Connection(connectionConfig);
+
+// module.exports = connection;
+module.exports = pool.promise();
