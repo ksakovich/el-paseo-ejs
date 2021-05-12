@@ -13,8 +13,8 @@ const errorController = require('./controllers/error');
 
 const app = express();
 console.log("STARTING THE APP");
-const dbFetcher = new DbFetcher();
-dbFetcher.getAllItems();
+// const dbFetcher = new DbFetcher();
+// dbFetcher.getAllItems();
 
 // const pool = new sql.ConnectionPool({
 //     user: process.env.DB_USER,

@@ -5,6 +5,8 @@ exports.getProducts = (req, res, next) =>
 {
   Product.fetchAll(products =>
   {
+    console.log("From shop, Products");
+    console.log(products);
     res.render('shop/product-list', {
       prods: products,
       pageTitle: 'All Products',
@@ -28,14 +30,16 @@ exports.getProduct = (req, res, next) =>
 
 exports.getIndex = (req, res, next) =>
 {
-  Product.fetchAll(products =>
+  Product.fetchAll().then((result) =>
   {
     res.render('shop/index', {
-      prods: products,
+      prods: result,
       pageTitle: 'Shop',
       path: '/'
     });
-  });
+  }).catch(err => console.log(err));
+
+
 };
 
 exports.getCart = (req, res, next) =>

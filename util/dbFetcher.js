@@ -30,8 +30,8 @@ class DbFetcher
         {
             await this.sql.connect(this.config);
             console.log("TRYING TO CONNECT TO DB");
-            const result = await sql.query`SELECT TOP 10 * FROM items`
-            console.dir(result)
+            const result = await sql.query`SELECT TOP 20 * FROM items`
+            return result.recordset;
         } catch (err)
         {
             console.log(err)
