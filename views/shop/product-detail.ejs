@@ -4,21 +4,31 @@
     <body>
         <%- include('../includes/navigation.ejs') %>
             <main class="centered">
-                <h1>
-                    <%= product.item_name %>
-                </h1>
-                <hr>
-                <div>
-                    <img src="<%= product.item_image_url %>"
-                        alt="<%= product.item_name %>">
+                <div class="container mt-5 mb-5">
+                    <article class="card product-item">
+                        <header class="card__header">
+                            <h1 class="product__title">
+                                <%= product.item_name %>
+                            </h1>
+                        </header>
+                        <hr>
+                        <div class="card__image">
+                            <img src="<%= product.item_image_url %>"
+                                alt="<%= product.item_name %>">
+                        </div>
+                        <div class="card__content">
+                            <h2 class="product__price">
+                                $<%= product.price %>
+                            </h2>
+                            <p>
+                                <%= product.short_description %>
+                            </p>
+                        </div>
+                        <div class="card__actions">  
+                            <%- include('../includes/add-to-cart.ejs')
+                                %>
+                        </div>  
+                    </article>
                 </div>
-                <h2>
-                    $<%= product.price %>
-                </h2>
-                <p>
-                    <%= product.short_description %>
-                </p>
-                <%- include('../includes/add-to-cart.ejs')
-                    %>
             </main>
             <%- include('../includes/end.ejs') %>
