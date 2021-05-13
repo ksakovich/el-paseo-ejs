@@ -1,18 +1,18 @@
 const Product = require('../models/product');
 const Cart = require('../models/cart');
+const DbFetcher = require('../util/dbFetcher');
+const dbFetcher = new DbFetcher();
 
 exports.getProducts = (req, res, next) =>
 {
-  Product.fetchAll(products =>
+  dbFetcher.getAllItems().then((result) =>
   {
-    console.log("From shop, Products");
-    console.log(products);
     res.render('shop/product-list', {
-      prods: products,
+      prods: result,
       pageTitle: 'All Products',
       path: '/products'
     });
-  });
+  }).catch(err => console.log(err));
 };
 
 exports.getProduct = (req, res, next) =>
@@ -30,7 +30,7 @@ exports.getProduct = (req, res, next) =>
 
 exports.getIndex = (req, res, next) =>
 {
-  Product.fetchAll().then((result) =>
+  dbFetcher.getAllItems().then((result) =>
   {
     res.render('shop/index', {
       prods: result,
@@ -38,8 +38,6 @@ exports.getIndex = (req, res, next) =>
       path: '/'
     });
   }).catch(err => console.log(err));
-
-
 };
 
 exports.getCart = (req, res, next) =>
