@@ -15,8 +15,8 @@
                                     class="card__header">
                                     <h1
                                         class="product__title">
-                                        <%= product.item_name
-                                            %>
+                                        <%=
+                                            product.item_name%>
                                     </h1>
                                 </header>
                                 <div class="card__image">
@@ -38,9 +38,8 @@
                                 <div class="card__actions">
                                     <a href="/products/<%= product.item_id %>"
                                         class="btn">Details</a>
-                                    <%- include('../includes/add-to-cart.ejs',
-                                        {product: product})
-                                        %>
+                                    <%- include('../includes/add-to-cart.ejs',{product:
+                                        product})%>
                                 </div>
                             </article>
                             <% } %>
