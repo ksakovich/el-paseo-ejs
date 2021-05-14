@@ -132,7 +132,7 @@ form {
 }
 
 .centered {
-  text-align: center;
+  text-align: left;
 }
 
 .main-header {
@@ -317,4 +317,27 @@ form {
   #side-menu-toggle {
     display: none;
   }
+}
+
+.container {
+  margin-top: 100px;
+}
+
+.col-md-7 {
+  color: #555;
+}
+
+.price {
+  color: #fe980f;
+  font-size: 26px;
+  font-weight: bold;
+  padding-top: 20px;
+}
+
+.input {
+  border: 1px solid #ccc;
+  font-weight: bold;
+  height: 33px;
+  text-align: center;
+  width: 30px;
 }
