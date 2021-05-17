@@ -125,6 +125,7 @@ body {
 main {
   padding: 1rem;
   margin: auto;
+  padding-top: 10px;
 }
 
 form {
@@ -340,4 +341,14 @@ form {
   height: 33px;
   text-align: center;
   width: 30px;
+}
+
+#posts {
+  margin-left: 5px;
+}
+
+.card:hover {
+  transform: scale(1.1);
+  transition: all 0.5s ease-in-out;
+  cursor: pointer;
 }

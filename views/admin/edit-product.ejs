@@ -21,7 +21,7 @@
                                     for="title">Title</label>
                                 <input type="text"
                                     name="title" id="title"
-                                    value="<% if (editing) { %><%= product.item_name %><% } %>">
+                                    value="<% if (editing) { %><%= product.item_name %><% } %>" required>
                             </div>
                             <div class="form-control">
                                 <label
@@ -29,7 +29,7 @@
                                 <input type="number"
                                     name="category_id"
                                     id="category_id"
-                                    value="<% if (editing) { %><%= product.category_id %><% } %>">
+                                    value="<% if (editing) { %><%= product.category_id %><% } %>" required>
                             </div>
                             <div class="form-control">
                                 <label
@@ -37,7 +37,7 @@
                                 <input type="number"
                                     name="vendor_id"
                                     id="vendor_id"
-                                    value="<% if (editing) { %><%= product.vendor_id %><% } %>">
+                                    value="<% if (editing) { %><%= product.vendor_id %><% } %>" required>
                             </div>
                             <div class="form-control">
                                 <label for="imageUrl">Image
@@ -45,7 +45,7 @@
                                 <input type="text"
                                     name="imageUrl"
                                     id="imageUrl" rows="5"
-                                    value="<% if (editing) { %><%= product.item_image_url %><% } %>">
+                                    value="<% if (editing) { %><%= product.item_image_url %><% } %>" required>
                             </div>
                             <div class="form-control">
                                 <label
@@ -53,7 +53,7 @@
                                 <input type="number"
                                     name="price" id="price"
                                     step="0.01"
-                                    value="<% if (editing) { %><%= product.price %><% } %>">
+                                    value="<% if (editing) { %><%= product.price %><% } %>" required>
                             </div>
                             <div class="form-control">
                                 <label
@@ -77,7 +77,7 @@
                                     for="unit">Unit</label>
                                 <input type="text"
                                     name="unit" id="unit"
-                                    value="<% if (editing) { %><%= product.unit %><% } %>">
+                                    value="<% if (editing) { %><%= product.unit %><% } %>" required>
                             </div>
                             <button class="btn"
                                 type="submit">

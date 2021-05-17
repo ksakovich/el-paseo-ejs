@@ -1,0 +1,10 @@
+#authors img {
+  margin-top: -50px;
+}
+#authors .card:hover {
+  background: #f59a22;
+  color: #fff;
+}
+#authors .fab {
+  color: #fff;
+}
