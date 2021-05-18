@@ -1,6 +1,7 @@
 const Product = require('../models/product');
 const Cart = require('../models/cart');
 const DbFetcher = require('../util/dbFetcher');
+const Category = require('../models/category');
 const dbFetcher = new DbFetcher();
 
 exports.getProducts = (req, res, next) =>
