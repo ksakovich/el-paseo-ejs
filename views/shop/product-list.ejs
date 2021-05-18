@@ -7,74 +7,186 @@
 
             <main>
                 <section id="posts">
-                    
-                        <div class="row">
-                            <div class="col-md-2">
-                                <div class="py-5 border-bottom ml-5">
-                                    <h4 class="font-weight-bold">Categories</h4>
-                                    <form>
-                                        <div class="form-group"> <input type="checkbox" id="tea"> <label for="tea">Fruits and Vegetables</label> </div>
-                                        <div class="form-group"> <input type="checkbox" id="cookies"> <label for="cookies">Dairy and Eggs </label> </div>
-                                        <div class="form-group"> <input type="checkbox" id="pastries"> <label for="pastries">Jams and Preserves </label> </div>
-                                        <div class="form-group"> <input type="checkbox" id="dough"> <label for="dough">Cereals and Dried fruit</label> </div>
-                                        <div class="form-group"> <input type="checkbox" id="choco"> <label for="choco">Bread and Bakery</label> </div>
-                                        <div class="form-group"> <input type="checkbox" id="pastries"> <label for="pastries">Pastas and Vegan Burgers</label> </div>
-                                        <div class="form-group"> <input type="checkbox" id="dough"> <label for="dough">Deli and Beverages</label> </div>
-                                        <div class="form-group"> <input type="checkbox" id="choco"> <label for="choco">Oil</label> </div>
-                                        <div class="form-group"> <input type="checkbox" id="choco"> <label for="choco">Seeds and Legumes</label> </div>
-                                        <div class="form-group"> <input type="checkbox" id="choco"> <label for="choco">Flour</label> </div>
-                                        <div class="form-group"> <input type="checkbox" id="choco"> <label for="choco">Cleaning Products</label> </div>
-                                        <div class="form-group"> <input type="checkbox" id="choco"> <label for="choco">Health and Personal care</label> </div>
-                                        <div class="form-group"> <input type="checkbox" id="choco"> <label for="choco">Handmade</label> </div>
-                                        <div class="form-group"> <input type="checkbox" id="choco"> <label for="choco">Sets</label> </div>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="col-md-10 py-5" >
-                                <% if (prods.length> 0) { %>
-                                    <div class="grid">
-                                        <% for (let product of prods) { %>
-                                            <article
-                                                class="card product-item">
-                                                <header
-                                                    class="card__header">
-                                                    <h1
-                                                        class="product__title">
-                                                        <%=
-                                                            product.item_name%>
-                                                    </h1>
-                                                </header>
-                                                <div class="card__image">
-                                                    <img src="<%= product.item_image_url %>"
-                                                        alt="<%= product.item_name %>">
-                                                </div>
-                                                <div class="card__content">
-                                                    <h2
-                                                        class="product__price">
-                                                        $
-                                                        <%= product.price %>
-                                                    </h2>
-                                                    <p
-                                                        class="product__description">
-                                                        <%= product.short_description
-                                                            %>
-                                                    </p>
-                                                </div>
-                                                <div class="card__actions">
-                                                    <a href="/products/<%= product.item_id %>"
-                                                        class="btn">Details</a>
-                                                    <%- include('../includes/add-to-cart.ejs',{product:
-                                                        product})%>
-                                                </div>
-                                            </article>
-                                            <% } %>
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div
+                                class="py-5 border-bottom ml-5">
+                                <h4
+                                    class="font-weight-bold">
+                                    Categories</h4>
+                                <form>
+                                    <div class="form-group">
+                                        <input
+                                            type="checkbox"
+                                            id="tea"> <label
+                                            for="tea">Fruits
+                                            and
+                                            Vegetables</label>
                                     </div>
-                                    <% } else { %>
-                                        <h1>No Products Found!</h1>
-                                        <% } %>
+                                    <div class="form-group">
+                                        <input
+                                            type="checkbox"
+                                            id="cookies">
+                                        <label
+                                            for="cookies">Dairy
+                                            and Eggs
+                                        </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input
+                                            type="checkbox"
+                                            id="pastries">
+                                        <label
+                                            for="pastries">Jams
+                                            and Preserves
+                                        </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input
+                                            type="checkbox"
+                                            id="dough">
+                                        <label
+                                            for="dough">Cereals
+                                            and Dried
+                                            fruit</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input
+                                            type="checkbox"
+                                            id="choco">
+                                        <label
+                                            for="choco">Bread
+                                            and
+                                            Bakery</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input
+                                            type="checkbox"
+                                            id="pastries">
+                                        <label
+                                            for="pastries">Pastas
+                                            and Vegan
+                                            Burgers</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input
+                                            type="checkbox"
+                                            id="dough">
+                                        <label
+                                            for="dough">Deli
+                                            and
+                                            Beverages</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input
+                                            type="checkbox"
+                                            id="choco">
+                                        <label
+                                            for="choco">Oil</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input
+                                            type="checkbox"
+                                            id="choco">
+                                        <label
+                                            for="choco">Seeds
+                                            and
+                                            Legumes</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input
+                                            type="checkbox"
+                                            id="choco">
+                                        <label
+                                            for="choco">Flour</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input
+                                            type="checkbox"
+                                            id="choco">
+                                        <label
+                                            for="choco">Cleaning
+                                            Products</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input
+                                            type="checkbox"
+                                            id="choco">
+                                        <label
+                                            for="choco">Health
+                                            and Personal
+                                            care</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input
+                                            type="checkbox"
+                                            id="choco">
+                                        <label
+                                            for="choco">Handmade</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input
+                                            type="checkbox"
+                                            id="choco">
+                                        <label
+                                            for="choco">Sets</label>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                            
+                        <div class="col-md-10 py-5">
+                            <% if (prods.length> 0) { %>
+                                <div class="grid">
+                                    <% for (let product of
+                                        prods) { %>
+                                        <article
+                                            class="card product-item">
+                                            <header
+                                                class="card__header">
+                                                <h1
+                                                    class="product__title">
+                                                    <%=
+                                                        product.title%>
+                                                </h1>
+                                            </header>
+
+                                            <div
+                                                class="card__image">
+                                                <img src="<%= product.small_image_url %>"
+                                                    alt="<%= product.title %>">
+                                            </div>
+                                            <div
+                                                class="card__content">
+                                                <h2
+                                                    class="product__price">
+                                                    $
+                                                    <%= product.price
+                                                        %>
+                                                </h2>
+                                                <p
+                                                    class="product__description">
+                                                    <%= product.short_description
+                                                        %>
+                                                </p>
+                                            </div>
+                                            <div
+                                                class="card__actions">
+                                                <a href="/products/<%= product.product_id %>"
+                                                    class="btn">Details</a>
+                                                <%- include('../includes/add-to-cart.ejs',{product:
+                                                    product})%>
+                                            </div>
+                                        </article>
+                                        <% } %>
+                                </div>
+                                <% } else { %>
+                                    <h1>No Products Found!
+                                    </h1>
+                                    <% } %>
+                        </div>
+                    </div>
+
                 </section>
             </main>
             <%- include('../includes/end.ejs') %>

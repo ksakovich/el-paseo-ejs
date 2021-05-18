@@ -1,40 +1,22 @@
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
-const DbFetcher = require('./util/dbFetcher');
-// const pool = require('./util/dbConnector');
+// const DbFetcher = require('./util/dbFetcher');
 
-
-// const sql = require('mssql')
 // const dotenv = require('dotenv');
 // dotenv.config()
-
+const sequalize = require('./util/sequelize');
 const errorController = require('./controllers/error');
 
 const app = express();
 console.log("STARTING THE APP");
-// const dbFetcher = new DbFetcher();
-// dbFetcher.getAllItems();
-
-// const pool = new sql.ConnectionPool({
-//     user: process.env.DB_USER,
-//     password: process.env.DB_PASS,
-//     server: process.env.DB_NAME,
-//     database: process.env.DB_SERVER,
-// })
-// pool.connect(err =>
-// {
-//     console.log(err);
-// });
-
-// const request = new sql.Request(pool);
-// pool.exexute('SELECT * FROM items').then().catch()
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
+const sequelize = require('./util/sequelize');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -43,5 +25,24 @@ app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 
 app.use(errorController.get404);
+// sequelize
+//     .authenticate()
+//     .then(() =>
+//     {
+//         console.log('Connection has been established successfully.');
+//     })
+//     .catch(err =>
+//     {
+//         console.error('Unable to connect to the database:', err);
+//     });
 
-app.listen(3030);
+sequelize.sync().then(result =>
+{
+    // console.log(result);
+    app.listen(3000);
+}).catch(err =>
+{
+    console.log(err);
+});
+
+

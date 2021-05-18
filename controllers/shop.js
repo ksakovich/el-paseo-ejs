@@ -5,19 +5,31 @@ const dbFetcher = new DbFetcher();
 
 exports.getProducts = (req, res, next) =>
 {
-  dbFetcher.getAllItems().then((result) =>
+  // dbFetcher.getAllItems().then((result) =>
+  // {
+  Product.findAll().then(products =>
   {
     res.render('shop/product-list', {
-      prods: result,
+      prods: products,
       pageTitle: 'All Products',
       path: '/products'
     });
   }).catch(err => console.log(err));
 };
 
+exports.getFarmers = (req, res, next) =>
+{
+  res.render('shop/farmers', {
+    prods: result,
+    pageTitle: 'Farmers',
+    path: '/farmers'
+  });
+};
+
 exports.getProduct = (req, res, next) =>
 {
   const prodId = req.params.productId;
+  // // findByPk()
   dbFetcher.findItemById(prodId).then((product =>
   {
     res.render('shop/product-detail', {
@@ -30,15 +42,29 @@ exports.getProduct = (req, res, next) =>
 
 exports.getIndex = (req, res, next) =>
 {
-  dbFetcher.getAllItems().then((result) =>
+  Product.findAll().then(products =>
   {
+    console.log(products);
     res.render('shop/index', {
-      prods: result,
+      prods: products,
       pageTitle: 'Shop',
       path: '/'
     });
-  }).catch(err => console.log(err));
-};
+  })
+    .catch(err =>
+    {
+      console.log(err);
+    });
+}
+//   dbFetcher.getAllItems().then((result) =>
+//   {
+//     res.render('shop/index', {
+//       prods: result,
+//       pageTitle: 'Shop',
+//       path: '/'
+//     });
+//   }).catch(err => console.log(err));
+// };
 
 exports.getCart = (req, res, next) =>
 {

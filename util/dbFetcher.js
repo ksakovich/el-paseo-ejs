@@ -31,11 +31,14 @@ class DbFetcher
         try
         {
             await this.sql.connect(this.config);
-            console.log("TRYING TO CONNECT TO DB for fetching all items");
-            const result = await sql.query`SELECT items.*, item_sizes.price 
-                                            FROM items
-                                            INNER JOIN item_sizes 
-                                            ON items.item_id = item_sizes.item_id`;
+            console.log("TRYING TO CONNECT TO DB TO FETCH all items");
+            // const result = await sql.query`SELECT items.*, item_sizes.price 
+            //                                 FROM items
+            //                                 INNER JOIN item_sizes 
+            //                                 ON items.item_id = item_sizes.item_id`;
+
+            const result = await sql.query`SELECT items.*
+                                            FROM items`;
             // console.log(result);
             // console.log(result.recordset);
             return result.recordset;
@@ -53,7 +56,6 @@ class DbFetcher
         await this.sql.connect(this.config);
         transaction.begin(err =>
         {
-
             const request = new sql.Request(transaction);
             request.input('category_id', sql.Int, product.category_id);
             request.input('item_name', sql.VarChar(255), product.title);
@@ -75,16 +77,21 @@ class DbFetcher
             })
         })
     }
+
     async findItemById(itemId)
     {
         try
         {
             await this.sql.connect(this.config);
-            console.log("TRYING TO CONNECT TO DB for fetching item by id");
-            const result = await sql.query`SELECT items.*, item_sizes.price 
+            console.log("TRYING TO CONNECT TO DB to FIND item by id");
+            // const result = await sql.query`SELECT items.*, item_sizes.price 
+            //                                 FROM items
+            //                                 INNER JOIN item_sizes 
+            //                                 ON items.item_id = item_sizes.item_id
+            //                                 WHERE items.item_id = ${itemId}`;
+
+            const result = await sql.query`SELECT items.*
                                             FROM items
-                                            INNER JOIN item_sizes 
-                                            ON items.item_id = item_sizes.item_id
                                             WHERE items.item_id = ${itemId}`;
             // console.log('result with id', result);
             return result.recordset;
@@ -92,6 +99,40 @@ class DbFetcher
         {
             console.log(err)
         }
+    }
+
+    async updateById(itemId)
+    {
+        // UPDATE table_name
+        // SET column1 = value1, column2 = value2, ...
+        // WHERE condition;
+    }
+
+    async deleteById(itemId)
+    {
+        console.log(`Connecting DB to DELETE the item with id: ${itemId}`);
+        const transaction = new sql.Transaction(/* [pool] */)
+        await this.sql.connect(this.config);
+        transaction.begin(err =>
+        {
+            const request = new sql.Request(transaction);
+            request.input('itemId', sql.Int, itemId);
+            const stmt = `DELETE FROM items 
+                WHERE item_id = @itemId`;
+            request.query(stmt, (err, result) =>
+            {
+                console.log("ERROR in DELETE query", err);
+
+                transaction.commit(err =>
+                {
+                    console.log("Transaction committed.")
+                })
+            })
+        })
+
+
+
+        // DELETE FROM table_name WHERE condition;
     }
 };
 

@@ -4,35 +4,48 @@
     </head>
 
     <body>
-    <%- include('../includes/navigation.ejs') %>
-                <!-- SHOWCASE SLIDER -->
-                <section id="showcase">
-                    <div id="myCarousel" class="carousel slide mb-4" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                            <li data-target="#myCarousel" data-slide-to="1"></li>
-                            <li data-target="#myCarousel" data-slide-to="2"></li>
-                        </ol>
-                        <div class="carousel-inner">
-                            <div class="carousel-item carousel-image-1 active">
-                            </div>
-        
-                            <div class="carousel-item carousel-image-2">
-                            </div>
-        
-                            <div class="carousel-item carousel-image-3">
-                            </div>
+        <%- include('../includes/navigation.ejs') %>
+            <!-- SHOWCASE SLIDER -->
+            <section id="showcase">
+                <div id="myCarousel"
+                    class="carousel slide mb-4"
+                    data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel"
+                            data-slide-to="0"
+                            class="active"></li>
+                        <li data-target="#myCarousel"
+                            data-slide-to="1"></li>
+                        <li data-target="#myCarousel"
+                            data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div
+                            class="carousel-item carousel-image-1 active">
                         </div>
-        
-                        <a href="#myCarousel" data-slide="prev" class="carousel-control-prev">
-                            <span class="carousel-control-prev-icon"></span>
-                        </a>
-        
-                        <a href="#myCarousel" data-slide="next" class="carousel-control-next">
-                            <span class="carousel-control-next-icon"></span>
-                        </a>
+
+                        <div
+                            class="carousel-item carousel-image-2">
+                        </div>
+
+                        <div
+                            class="carousel-item carousel-image-3">
+                        </div>
                     </div>
-                </section>
+
+                    <a href="#myCarousel" data-slide="prev"
+                        class="carousel-control-prev">
+                        <span
+                            class="carousel-control-prev-icon"></span>
+                    </a>
+
+                    <a href="#myCarousel" data-slide="next"
+                        class="carousel-control-next">
+                        <span
+                            class="carousel-control-next-icon"></span>
+                    </a>
+                </div>
+            </section>
             <main>
                 <% if (prods.length> 0) { %>
                     <div class="grid">
@@ -43,13 +56,12 @@
                                     class="card__header">
                                     <h1
                                         class="product__title">
-                                        <%= product.item_name
-                                            %>
+                                        <%= product.title %>
                                     </h1>
                                 </header>
                                 <div class="card__image">
-                                    <img src="<%= product.item_image_url %>"
-                                        alt="<%= product.item_name %>">
+                                    <img src="<%= product.small_image_url %>"
+                                        alt="<%= product.title %>">
                                 </div>
                                 <div class="card__content">
                                     <h2
@@ -76,18 +88,19 @@
                         <% } %>
             </main>
             <%- include('../includes/end.ejs') %>
-            
-            <script>
-                // Configure Slider
-                $('.carousel').carousel({
-                  interval: 6000,
-                  pause: 'hover'
-                });
-            
-                // Lightbox Init
-                $(document).on('click', '[data-toggle="lightbox"]', function (event) {
-                  event.preventDefault();
-                  $(this).ekkoLightbox();
-                });
-            
-              </script>
+
+                <script>
+                    // Configure Slider
+                    $('.carousel').carousel({
+                        interval: 6000,
+                        pause: 'hover'
+                    });
+
+                    // Lightbox Init
+                    $(document).on('click', '[data-toggle="lightbox"]', function (event)
+                    {
+                        event.preventDefault();
+                        $(this).ekkoLightbox();
+                    });
+
+                </script>
