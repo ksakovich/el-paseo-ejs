@@ -14,7 +14,7 @@
                     <% if (editing) { %>
                         <input type="hidden"
                             value="<%= product.product_id %>"
-                            name="productId">
+                            name="product_id">
                         <% } %>
                             <div class="form-control">
                                 <label
@@ -100,7 +100,7 @@
                             <div>
                                 <input type="checkbox"
                                     id="is_composite"
-                                    name="is_composite"
+                                    name="<% if (editing) { %><%= product.is_composite %><% } %>"
                                     value="<% if (editing) { %><%= product.is_composite %><% } %>">
                                 <label for="is_composite">
                                     Is
