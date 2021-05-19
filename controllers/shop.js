@@ -13,6 +13,7 @@ exports.getProducts = (req, res, next) =>
   Product.findAll()
     .then((products) =>
     {
+      console.log(products);
       res.render("shop/product-list", {
         prods: products,
         pageTitle: "All Products",
@@ -51,21 +52,33 @@ exports.getFarmers = (req, res, next) =>
   });
 };
 
-exports.getProduct = (req, res, next) =>
+exports.getSingleProduct = (req, res, next) =>
 {
   const prodId = req.params.productId;
   // // findByPk()
-  dbFetcher
-    .findItemById(prodId)
-    .then((product) =>
-    {
-      res.render("shop/product-detail", {
-        product: product[0],
-        pageTitle: product.title,
-        path: "/products",
-      });
-    })
-    .catch((err) => console.log(err));
+
+  Product.findByPk(prodId).then(singleProduct =>
+  {
+    res.render("shop/product-detail", {
+      product: singleProduct.dataValues,
+      pageTitle: singleProduct.title,
+      path: "/products",
+    });
+  }).catch(err =>
+  {
+    console.log(err);
+  });
+  // dbFetcher
+  //   .findItemById(prodId)
+  //   .then((product) =>
+  //   {
+  //     res.render("shop/product-detail", {
+  //       product: product[0],
+  //       pageTitle: product.title,
+  //       path: "/products",
+  //     });
+  //   })
+  //   .catch((err) => console.log(err));
 };
 
 exports.getIndex = (req, res, next) =>
