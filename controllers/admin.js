@@ -39,6 +39,7 @@ exports.postAddProduct = (req, res, next) =>
   }).then(result =>
   {
     console.log("======== Product was added to DB ========");
+    res.redirect('/');
   }).catch(err =>
   {
     console.log(err);
@@ -46,7 +47,6 @@ exports.postAddProduct = (req, res, next) =>
   // const product = new Product(null, title, categoryId, vendorId, imageUrl, description, isComposite, unit, price);
   // dbFetcher.insertNewItem(product);
   // product.save();
-  res.redirect('/');
 };
 
 exports.getEditProduct = (req, res, next) =>
@@ -110,12 +110,11 @@ exports.postEditProduct = (req, res, next) =>
   }).then(result =>
   {
     console.log(`Updated product in DB: ${updatedTitle}`);
+    res.redirect('/admin/products');
   }).catch(err =>
   {
     console.log(err);
   });
-
-  res.redirect('/admin/products');
 };
 
 exports.getProducts = (req, res, next) =>
@@ -135,7 +134,20 @@ exports.getProducts = (req, res, next) =>
 
 exports.postDeleteProduct = (req, res, next) =>
 {
-  const prodId = req.body.productId;
-  Product.deleteById(prodId);
-  res.redirect('/admin/products');
+  const prodId = req.body.product_id;
+  Product.findByPk(prodId)
+    .then(product =>
+    {
+      return product.destroy()
+        .then(result =>
+        {
+          console.log(`Deleting from DB product with ID: ${prodId}`);
+          // res.redirect('/admin/products');
+          res.redirect('/');
+        })
+    }).catch(err =>
+    {
+      console.log(err);
+    });
+  console.log('================ Done deleting ===============');
 };
