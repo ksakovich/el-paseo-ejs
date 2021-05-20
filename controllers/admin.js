@@ -1,6 +1,7 @@
 const Product = require('../models/product');
-const DbFetcher = require('../util/dbFetcher');
-const dbFetcher = new DbFetcher();
+const Order = require('../models/order');
+// const DbFetcher = require('../util/dbFetcher');
+// const dbFetcher = new DbFetcher();
 
 exports.getAddProduct = (req, res, next) =>
 {
@@ -24,6 +25,7 @@ exports.postAddProduct = (req, res, next) =>
   const is_composite = req.body.is_composite;
   const unit = req.body.unit;
   const quantity_in_stock = req.body.quantity_in_stock;
+  // EXMPLE: req.user.createProduct();
   Product.create({
     category_id: category_id,
     title: title,
@@ -44,9 +46,6 @@ exports.postAddProduct = (req, res, next) =>
   {
     console.log(err);
   });
-  // const product = new Product(null, title, categoryId, vendorId, imageUrl, description, isComposite, unit, price);
-  // dbFetcher.insertNewItem(product);
-  // product.save();
 };
 
 exports.getEditProduct = (req, res, next) =>
@@ -142,8 +141,8 @@ exports.postDeleteProduct = (req, res, next) =>
         .then(result =>
         {
           console.log(`Deleting from DB product with ID: ${prodId}`);
-          // res.redirect('/admin/products');
-          res.redirect('/');
+          res.redirect('/admin/products');
+          // res.redirect('/');
         })
     }).catch(err =>
     {
@@ -151,3 +150,9 @@ exports.postDeleteProduct = (req, res, next) =>
     });
   console.log('================ Done deleting ===============');
 };
+
+// TODO 
+// exports.getUserOrders = (req, res, next) => {
+//   const orderId = req.params.order_id;
+//   req.user.getUserOrders({where: {user_id}})
+// }

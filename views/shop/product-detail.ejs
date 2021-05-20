@@ -30,8 +30,8 @@
                                 name="many" min="1" max="10"
                                 value="1">
                             <span class="card__actions">
-                                <%- include('../includes/add-to-cart.ejs')
-                                    %>
+                                <%- include('../includes/add-to-cart.ejs',
+                                    {product: product}) %>
                             </span>
                         </div>
                     </div>
