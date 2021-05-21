@@ -4,7 +4,7 @@ const sequelize = require("../util/sequelize");
 // cosnt sequelize
 
 // https://sequelize.org/v5/manual/data-types.html
-const Group = sequelize.define("group", {
+const Category = sequelize.define("category", {
   category_id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
@@ -15,11 +15,6 @@ const Group = sequelize.define("group", {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  is_composite: {
-    type: Sequelize.BOOLEAN,
-    allowNull: false,
-    defaultValue: false,
-  },
 });
 
-module.exports = Group;
+module.exports = Category;
