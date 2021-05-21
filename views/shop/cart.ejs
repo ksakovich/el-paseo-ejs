@@ -4,85 +4,121 @@
     <body>
         <%- include('../includes/navigation.ejs') %>
             <main>
-                <% if (products.length> 0) { %>
-                    <div class="small-container cart-page">
-                        <table>
-                            <tr>
-                                <th>Product</th>
-                                <th>Quantity</th>
-                                <th>Subtotal</th>
-                            </tr>
-                            <% products.forEach(product=> { %>
-                            <tr>
-                                <tr>
-                                    <td>
-                                        <div class="cart-info">
-                                            <img 
-                                            src="<%= product.big_image_url %>"
-                                            alt="<%= product.title %>">
-                                            <div>
-                                                <p>
-                                                    <%= product.title %>
-                                                </p>
-                                                <small>Price: $ <%= product.price%></small>
-                                                <br>
-                                                <small>
-                                                    <form
-                                                        action="/cart-delete-item"
-                                                        method="POST">
-                                                        <input type="hidden"
-                                                            value="<%= product.product_id %>"
-                                                            name="productId">
-                                                        <button class="btn"
-                                                            type="submit">Delete</button>
-                                                    </form>
-                                                </small>    
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td><input type="number" value="<%= product.cart_item.quantity%>"></td>
-                                    <td>$<%= product.price%></td>
-                                </tr>
-                            </tr>
-                            <% }) %>
-                        </table>
-                        <div class="total-price">
+                <% let sutotal=0 %>
+                    <% if (products.length> 0) { %>
+                        <div
+                            class="small-container cart-page">
                             <table>
                                 <tr>
-                                    <td>Subtotal</td>
-                                    <td>$PUT SUBTOTAL</td>
+                                    <th>Product </th>
+                                    <th>Quantity</th>
+                                    <th>Subtotal</th>
                                 </tr>
-                                <tr>
-                                    <td>Total</td>
-                                    <td>$PUT TOTAL</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        
-                                    </td>
-                                    <td>
-                                        <div class="button-checkout">
-                                            <form action="/create-order"
-                                                    method="POST">
-                                                    <button type="submit"
-                                                        class="btn">Proceed to checkout</button>
-                                            </form>
-                                        </div>
-                                    </td>    
-                                </tr>
+                                <%
+                                    products.forEach(product=>
+                                    { %>
+                                    <% sutotal
+                                        +=product.price; %>
+                                        <tr>
+                                        <tr>
+                                            <td>
+                                                <div
+                                                    class="cart-info">
+                                                    <img src="<%= product.big_image_url %>"
+                                                        alt="<%= product.title %>">
+                                                    <div>
+                                                        <p>
+                                                            <%= product.title
+                                                                %>
+                                                        </p>
+                                                        <small>Price:
+                                                            $
+                                                            <%=
+                                                                product.price%>
+                                                        </small>
+                                                        <br>
+                                                        <small>
+                                                            <form
+                                                                action="/cart-delete-item"
+                                                                method="POST">
+                                                                <input
+                                                                    type="hidden"
+                                                                    value="<%= product.product_id %>"
+                                                                    name="productId">
+                                                                <button
+                                                                    class="btn"
+                                                                    type="submit">Delete</button>
+                                                            </form>
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td><input
+                                                    type="number"
+                                                    value="<%= product.cart_item.quantity%>">
+                                            </td>
+                                            <td>$<%=
+                                                    product.price%>
+                                            </td>
+                                        </tr>
+                                        </tr>
+                                        <% }) %>
                             </table>
-                        </div>
-                        
-                        <% } else { %>
-                            <h1>No Products in Cart!</h1>
-                            <% } %>
-                                <div class="centered">
-                                    
-                                </div>
+                            <div class="total-price">
+                                <% let expenses=0 %>
+                                    <% let total=0 %>
+                                        <table>
+                                            <tr>
+                                                <td>Subtotal:
+                                                </td>
+                                                <td>
+                                                    $ <%=
+                                                        sutotal%>
+                                                        <% total=sutotal
+                                                            +
+                                                            expenses%>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Total:
+                                                </td>
+                                                <td>$
+                                                    <%=total%>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
 
-                            </li>
-                            
-                    </ul>
-                    
+                                                </td>
+                                                <td>
+                                                    <div
+                                                        class="button-checkout">
+                                                        <form
+                                                            action="/create-order"
+                                                            method="POST">
+                                                            <button
+                                                                type="submit"
+                                                                class="btn">Proceed
+                                                                to
+                                                                checkout</button>
+                                                        </form>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                            </div>
+
+                            <% } else { %>
+                                <h1>No Products in Cart!
+                                </h1>
+                                <% } %>
+                                    <div class="centered">
+
+                                    </div>
+
+                                    </li>
+
+                                    </ul>
+
             </main>
             <%- include('../includes/end.ejs') %>
