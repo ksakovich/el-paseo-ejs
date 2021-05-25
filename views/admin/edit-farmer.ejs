@@ -1,0 +1,36 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/forms.css">
+    <link rel="stylesheet" href="/css/product.css">
+</head>
+
+<body>
+   <%- include('../includes/navigation.ejs') %>
+
+    <main>
+        <form class="product-form" action="/admin/<% if (editing) { %>edit-farmer<% } else { %>add-farmer<% } %>" method="POST">
+            <div class="form-control">
+                <label for="farmer_id">Farmer ID</label>
+                <input type="text" name="farmer_id" id="farmer_id" value="<% if (editing) { %><%= farmer.farmer_id %><% } %>">
+            </div>
+            <div class="form-control">
+                <label for="farmer_title">Farmer Title</label>
+                <input type="text" name="farmer_title" id="farmer_title" value="<% if (editing) { %><%= farmer.farmer_title %><% } %>">
+            </div>
+            <div class="form-control">
+                <label
+                    for="description">
+                    Description</label>
+                <textarea
+                    name="description"
+                    id="description"
+                    rows="3"><% if (editing) { %><%= farmer.description %><% } %></textarea>
+            </div>
+            <div class="form-control">
+                <label for="image_url">Image</label>
+                <input type="text" name="image_url" id="image_url">
+            </div>
+
+            <button class="btn" type="submit"><% if (editing) { %>Update Farmer<% } else { %>Add Farmer<% } %></button>
+        </form>
+    </main>
+<%- include('../includes/end.ejs') %>

@@ -1,0 +1,58 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/product.css">
+<link rel="stylesheet" href="/css/farmers.css">
+    </head>
+
+    <body>
+        <%- include('../includes/navigation.ejs') %>
+        <main>
+          
+            <section id="authors" class="my-5 text-center">
+                <div class="container">
+                  <div class="row">
+                    <div class="col">
+                      <div class="info-header mb-5">
+                        <h1 class="text-danger pb-3">
+                          Get to know your local farmers
+                        </h1>
+                        <p class="lead">
+                          All the companies associated with el Paseo!
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <% if (farmers.length > 0) { %>
+                    <div class="grid">
+                      <% for (let result of farmers) { %>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="card mb-5">
+                              <div class="card-body">
+                                <img src="<%= result.image_url %>" alt="" class="img-fluid rounded-circle w-50 mb-3">
+                                <h3><%= result.farmer_title %></h3>
+                                <!--<h5 class="text-muted">Lead Writer</h5>-->
+                                <p><%= result.description %></p>
+                                <div class="d-flex justify-content-center">
+                                  <div class="p-4">
+                                    <a href="mailto:paseosocial@gmail.com"><i
+                                      class="far fa-envelope"></i></a>
+                                  </div>
+                                  <div class="p-4">
+                                    <a href="https://www.instagram.com/paseo.unlp/"><i
+                                      class="fab fa-instagram"></i></a>
+                                  </div>
+                                  <div class="card__actions">
+                                    <a href="/farmers/<%= result.farmer_id %>" class="btn">Details</a>
+                                  </div>  
+                                </div>
+                              </div>
+                            </div>
+                            
+                        </div> 
+                      <% } %>   
+                    </div>
+                  <% } else { %><h1>No Farmers Found!</h1><% } %>
+                </div>
+              </section>
+              
+        </main>
+        <%- include('../includes/end.ejs') %>

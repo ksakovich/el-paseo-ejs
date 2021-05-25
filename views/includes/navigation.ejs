@@ -33,6 +33,20 @@
       </li>
       <li class="main-header__item">
         <a
+          class="<%= path === '/admin/add-farmer' ? 'active' : '' %>"
+          href="/admin/add-farmer"
+          >Add Farmer
+        </a>
+      </li>
+      <li class="main-header__item">
+        <a
+          class="<%= path === '/admin/farmers' ? 'active' : '' %>"
+          href="/admin/farmers"
+          >Admin Farmers
+        </a>
+      </li>
+      <li class="main-header__item">
+        <a
           class="<%= path === '/admin/add-product' ? 'active' : '' %>"
           href="/admin/add-product"
           >Add Product
@@ -40,9 +54,23 @@
       </li>
       <li class="main-header__item">
         <a
+          class="<%= path === '/admin/add-category' ? 'active' : '' %>"
+          href="/admin/add-category"
+          >Add Category
+        </a>
+      </li>
+      <li class="main-header__item">
+        <a
           class="<%= path === '/admin/products' ? 'active' : '' %>"
           href="/admin/products"
           >Admin Products
+        </a>
+      </li>
+      <li class="main-header__item">
+        <a
+          class="<%= path === '/admin/categories' ? 'active' : '' %>"
+          href="/admin/categories"
+          >Admin Categories
         </a>
       </li>
     </ul>

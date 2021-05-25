@@ -1,19 +1,19 @@
-const Product = require('../models/product');
-const Order = require('../models/order');
+const Product = require("../models/product");
+const Order = require("../models/order");
+const Category = require("../models/category");
+const Farmer = require("../models/farmer");
 // const DbFetcher = require('../util/dbFetcher');
 // const dbFetcher = new DbFetcher();
 
-exports.getAddProduct = (req, res, next) =>
-{
-  res.render('admin/edit-product', {
-    pageTitle: 'Add Product',
-    path: '/admin/add-product',
-    editing: false
+exports.getAddProduct = (req, res, next) => {
+  res.render("admin/edit-product", {
+    pageTitle: "Add Product",
+    path: "/admin/add-product",
+    editing: false,
   });
 };
 
-exports.postAddProduct = (req, res, next) =>
-{
+exports.postAddProduct = (req, res, next) => {
   const category_id = req.body.category_id;
   const title = req.body.title;
   const vendor_id = req.body.vendor_id;
@@ -37,47 +37,43 @@ exports.postAddProduct = (req, res, next) =>
     price: price,
     is_composite: is_composite,
     unit: unit,
-    quantity_in_stock: quantity_in_stock
-  }).then(result =>
-  {
-    console.log("======== Product was added to DB ========");
-    res.redirect('/');
-  }).catch(err =>
-  {
-    console.log(err);
-  });
+    quantity_in_stock: quantity_in_stock,
+  })
+    .then((result) => {
+      console.log("======== Product was added to DB ========");
+      res.redirect("/");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
-exports.getEditProduct = (req, res, next) =>
-{
+exports.getEditProduct = (req, res, next) => {
   const editMode = req.query.edit;
-  if (!editMode)
-  {
-    return res.redirect('/');
+  if (!editMode) {
+    return res.redirect("/");
   }
   const prodId = req.params.productId;
 
   // findByPk()
-  Product.findByPk(prodId).then(product =>
-  {
-    if (!product)
-    {
-      return res.redirect('/');
-    }
-    res.render('admin/edit-product', {
-      pageTitle: 'Edit Product',
-      path: '/admin/edit-product',
-      editing: editMode,
-      product: product
+  Product.findByPk(prodId)
+    .then((product) => {
+      if (!product) {
+        return res.redirect("/");
+      }
+      res.render("admin/edit-product", {
+        pageTitle: "Edit Product",
+        path: "/admin/edit-product",
+        editing: editMode,
+        product: product,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
     });
-  }).catch(err =>
-  {
-    console.log(err);
-  });
 };
 
-exports.postEditProduct = (req, res, next) =>
-{
+exports.postEditProduct = (req, res, next) => {
   const prodId = req.body.product_id;
   const updatedCategoryId = req.body.category_id;
   const updatedTitle = req.body.title;
@@ -91,67 +87,218 @@ exports.postEditProduct = (req, res, next) =>
   const updatedUnit = req.body.unit;
   const updatedQuantity = req.body.quantity_in_stock;
 
-  Product.findByPk(prodId).then(product =>
-  {
-    product.product_id = prodId;
-    product.category_id = updatedCategoryId;
-    product.title = updatedTitle;
-    product.vendor_id = updatedVendorId;
-    product.short_description = updatedShortDescription;
-    product.long_description = updatedLongDescription;
-    product.small_imageUrl = updatedSmallImageUrl;
-    product.big_image_url = updatedBigImageUrl;
-    product.price = updatedPrice;
-    product.is_composite = updatedIsComposite;
-    product.unit = updatedUnit;
-    product.quantity_in_stock = updatedQuantity;
-    return product.save();
-  }).then(result =>
-  {
-    console.log(`Updated product in DB: ${updatedTitle}`);
-    res.redirect('/admin/products');
-  }).catch(err =>
-  {
-    console.log(err);
+  Product.findByPk(prodId)
+    .then((product) => {
+      product.product_id = prodId;
+      product.category_id = updatedCategoryId;
+      product.title = updatedTitle;
+      product.vendor_id = updatedVendorId;
+      product.short_description = updatedShortDescription;
+      product.long_description = updatedLongDescription;
+      product.small_imageUrl = updatedSmallImageUrl;
+      product.big_image_url = updatedBigImageUrl;
+      product.price = updatedPrice;
+      product.is_composite = updatedIsComposite;
+      product.unit = updatedUnit;
+      product.quantity_in_stock = updatedQuantity;
+      return product.save();
+    })
+    .then((result) => {
+      console.log(`Updated product in DB: ${updatedTitle}`);
+      res.redirect("/admin/products");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+exports.getProducts = (req, res, next) => {
+  Product.findAll()
+    .then((products) => {
+      res.render("admin/products", {
+        prods: products,
+        pageTitle: "Admin Products",
+        path: "/admin/products",
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+exports.postDeleteProduct = (req, res, next) => {
+  const prodId = req.body.product_id;
+  Product.findByPk(prodId)
+    .then((product) => {
+      return product.destroy().then((result) => {
+        console.log(`Deleting from DB product with ID: ${prodId}`);
+        res.redirect("/admin/products");
+        // res.redirect('/');
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  console.log("================ Done deleting ===============");
+};
+
+//***********CATEGORIES*************
+
+exports.getAddCategory = (req, res, next) => {
+  res.render("admin/edit-category", {
+    pageTitle: "Add Category",
+    path: "/admin/add-category",
+    editing: false,
   });
 };
 
-exports.getProducts = (req, res, next) =>
-{
-  Product.findAll().then(products =>
-  {
-    res.render('admin/products', {
-      prods: products,
-      pageTitle: 'Admin Products',
-      path: '/admin/products'
-    });
-  }).catch(err =>
-  {
-    console.log(err);
-  })
-};
+exports.postAddCategory = (req, res, next) => {
+  const category_name = req.body.category_name;
 
-exports.postDeleteProduct = (req, res, next) =>
-{
-  const prodId = req.body.product_id;
-  Product.findByPk(prodId)
-    .then(product =>
-    {
-      return product.destroy()
-        .then(result =>
-        {
-          console.log(`Deleting from DB product with ID: ${prodId}`);
-          res.redirect('/admin/products');
-          // res.redirect('/');
-        })
-    }).catch(err =>
-    {
+  Category.create({
+    category_name: category_name,
+  })
+    .then((result) => {
+      console.log("======== Category was added to DB ========");
+      res.redirect("/admin/categories");
+    })
+    .catch((err) => {
       console.log(err);
     });
-  console.log('================ Done deleting ===============');
 };
 
-// TODO 
+exports.getEditCategory = (req, res, next) => {
+  const editMode = req.query.edit;
+  if (!editMode) {
+    return res.redirect("/");
+  }
+  const CategId = req.params.categoryId;
+  Category.findByPk(CategId)
+    .then((category) => {
+      if (!category) {
+        return res.redirect("/");
+      }
+      res.render("admin/edit-category", {
+        pageTitle: "Edit Category",
+        path: "/admin/edit-category",
+        editing: editMode,
+        category: category,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+//POST EDIT CATEGORY
+exports.postEditCategory = (req, res, next) => {
+  const CategId = req.body.category_id;
+  const UpdatedCategoryName = req.body.category_name;
+
+  Category.findByPk(CategId)
+    .then((category) => {
+      category.category_id = CategId;
+      category.category_name = UpdatedCategoryName;
+      return category.save();
+    })
+    .then((result) => {
+      console.log("Updated category in DB: ${UpdatedCategoryName}");
+      res.redirect("/admin/categories");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+exports.getCategories = (req, res, next) => {
+  Category.findAll()
+    .then((categories) => {
+      res.render("admin/categories", {
+        categs: categories,
+        pageTitle: "Admin Categories",
+        path: "/admin/categories",
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+exports.postDeleteCategory = (req, res, next) => {
+  const CategId = req.body.category_id;
+};
+
+//********FARMERS**********
+exports.getAddFarmer = (req, res, next) => {
+  res.render("admin/edit-farmer", {
+    pageTitle: "Add Farmer",
+    path: "/admin/add-farmer",
+    editing: false,
+  });
+};
+
+exports.postAddFarmer = (req, res, next) => {
+  const farmer_id = req.body.farmer_id;
+  const farmer_title = req.body.farmer_title;
+  const description = req.body.description;
+  const image_url = req.body.image_url;
+
+  Farmer.create({
+    farmer_id: farmer_id,
+    farmer_title: farmer_title,
+    description: description,
+    image_url: image_url,
+  })
+    .then((result) => {
+      console.log("======== Farmer was added to DB ========");
+      res.redirect("/farmers");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+exports.getEditFarmer = (req, res, next) => {
+  const editMode = req.query.edit;
+  if (!editMode) {
+    return res.redirect("/");
+  }
+  const farmId = req.params.farmerId;
+  Farmer.findByPk(farmId)
+    .then((farmer) => {
+      if (!farmer) {
+        return res.redirect("/");
+      }
+      res.render("admin/edit-farmer", {
+        pageTitle: "Edit Farmer",
+        path: "/admin/edit-farmer",
+        editing: editMode,
+        farmer: farmer,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+exports.postEditFarmer = (req, res, next) => {};
+
+exports.getFarmers = (req, res, next) => {
+  Farmer.findAll()
+    .then((result) => {
+      res.render("admin/farmers", {
+        farmers: result,
+        pageTitle: "Admin Farmers",
+        path: "/admin/farmers",
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+//POSST DELETE CATEGORIES
+
+// TODO
 // exports.getUserOrders = (req, res, next) => {
 //   const orderId = req.params.order_id;
 //   req.user.getUserOrders({where: {user_id}})

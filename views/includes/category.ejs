@@ -1,6 +1,8 @@
 <div class="py-5 border-bottom ml-5">
   <h3 class="font-weight-bold">Categories</h3>
+  <% if (categs.length> 0) { %>
   <ul class="list-group">
+    <% for (let categories of categs) { %>
     <li
       class="
         list-group-item list-group-item-action
@@ -10,7 +12,11 @@
         category
       "
     >
-      Fruits and Vegetables
+      <%=categories.category_name%>
     </li>
+    <% } %>
   </ul>
+  <% } else { %>
+  <h1>No Categories Found!</h1>
+  <% } %>
 </div>
