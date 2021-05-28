@@ -33,9 +33,10 @@ exports.getProducts = (req, res, next) => {
 
 exports.getCategories = (req, res, next) => {
   Category.findAll()
-    .then((categories) => {
-      res.render("includes/category", {
-        categs: categories,
+    .then((extractedCategories) => {
+      categories = [...extractedCategories];
+      res.render("shop/product-list", {
+        categories: categories,
         pageTitle: "All Products",
         path: "/products",
       });
@@ -43,17 +44,12 @@ exports.getCategories = (req, res, next) => {
     .catch((err) => console.log(err));
 };
 
-exports.getCategory = (req, res, next) => {
-  const categId = req.params.categoryId;
-  console.log(categId);
-  res.redirect("/");
-};
-
 exports.getFarmers = (req, res, next) => {
   Farmer.findAll()
-    .then((result) => {
+    .then((extractedFarmers) => {
+      farmers = [...extractedFarmers];
       res.render("shop/farmer-list", {
-        farmers: result,
+        farmers: farmers,
         pageTitle: "Farmers",
         path: "/farmers",
       });
@@ -63,11 +59,21 @@ exports.getFarmers = (req, res, next) => {
     });
 };
 
+exports.getSingleCategory = (req, res, next) => {
+  const categId = req.params.categoryId;
+  Category.findByPk(categId, (category) => {
+    console.log(category);
+  });
+  console.log(categId);
+  res.redirect("/");
+};
+
 exports.getSingleFarmer = (req, res, next) => {
   const farmId = req.params.farmerId;
   Farmer.findByPk(farmId, (farmer) => {
     console.log(farmer);
   });
+  console.log(farmId);
   res.redirect("/farmers");
 };
 

@@ -12,7 +12,7 @@
                     method="POST">
                         <% if (editing) { %>
                         <input type="hidden"
-                            value="<%= categories.category_id %>"
+                            value="<%= category.category_id %>"
                             name="category_id">
                         <% } %>
                             <div class="form-control">
@@ -20,7 +20,7 @@
                                     for="category_name">Category name</label>
                                 <input type="text"
                                     name="category_name" id="category_name"
-                                    value="<% if (editing) { %><%= categories.category_name %><% } %>"
+                                    value="<% if (editing) { %><%= category.category_name %><% } %>"
                                     required>
                             </div>
                             <button class="btn"

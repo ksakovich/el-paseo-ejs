@@ -43,6 +43,8 @@ router.post("/add-farmer", adminController.postAddFarmer);
 
 router.get("/edit-farmer/:farmerId", adminController.getEditFarmer);
 
-router.post("/edit-farmer/");
+router.post("/edit-farmer/", adminController.postEditFarmer);
+
+router.post("/delete-farmer", adminController.postDeleteFarmer);
 
 module.exports = router;

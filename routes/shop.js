@@ -10,7 +10,9 @@ router.get("/", shopController.getIndex);
 
 router.get("/products", shopController.getProducts);
 
-router.get("/category", shopController.getCategories);
+router.get("/categories", shopController.getCategories);
+
+router.get("/categories/:categoryId", shopController.getSingleCategory);
 
 router.get("/farmers", shopController.getFarmers);
 

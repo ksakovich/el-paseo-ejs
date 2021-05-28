@@ -6,7 +6,6 @@
     <body>
         <%- include('../includes/navigation.ejs') %>
         <main>
-          
             <section id="authors" class="my-5 text-center">
                 <div class="container">
                   <div class="row">
@@ -27,17 +26,17 @@
                         <div class="col-lg-3 col-md-6">
                             <div class="card mb-5">
                               <div class="card-body">
-                                <img src="<%= result.image_url %>" alt="" class="img-fluid rounded-circle w-50 mb-3">
+                                <img src="<%= result.image_url %>" alt="<%= result.farmer_title %>" class="img-fluid rounded-circle w-50 mb-3">
                                 <h3><%= result.farmer_title %></h3>
                                 <!--<h5 class="text-muted">Lead Writer</h5>-->
                                 <p><%= result.description %></p>
                                 <div class="d-flex justify-content-center">
                                   <div class="p-4">
-                                    <a href="mailto:paseosocial@gmail.com"><i
+                                    <a href="<%= result.social_first %>"><i
                                       class="far fa-envelope"></i></a>
                                   </div>
                                   <div class="p-4">
-                                    <a href="https://www.instagram.com/paseo.unlp/"><i
+                                    <a href="<%= result.social_second %>"><i
                                       class="fab fa-instagram"></i></a>
                                   </div>
                                 </div>
@@ -49,8 +48,8 @@
                                     action="/admin/delete-farmer"
                                     method="POST">
                                     <input type="hidden"
-                                        value="number"
-                                        name="">
+                                        value="<%= result.farmer_id %>"
+                                        name="farmer_id">
                                     <button class="btn"
                                         type="submit">Delete</button>
                                 </form>

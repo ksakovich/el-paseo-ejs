@@ -8,18 +8,14 @@
 
     <main>
         <form class="product-form" action="/admin/<% if (editing) { %>edit-farmer<% } else { %>add-farmer<% } %>" method="POST">
-            <div class="form-control">
-                <label for="farmer_id">Farmer ID</label>
-                <input type="text" name="farmer_id" id="farmer_id" value="<% if (editing) { %><%= farmer.farmer_id %><% } %>">
-            </div>
+            <% if (editing) { %><input type="hidden" value="<%= farmer.farmer_id %>" name="farmer_id"><% } %>
+            
             <div class="form-control">
                 <label for="farmer_title">Farmer Title</label>
-                <input type="text" name="farmer_title" id="farmer_title" value="<% if (editing) { %><%= farmer.farmer_title %><% } %>">
+                <input type="text" name="farmer_title" id="farmer_title" value="<% if (editing) { %><%= farmer.farmer_title %><% } %>" required>
             </div>
             <div class="form-control">
-                <label
-                    for="description">
-                    Description</label>
+                <label for="description">Description</label>
                 <textarea
                     name="description"
                     id="description"
@@ -27,7 +23,16 @@
             </div>
             <div class="form-control">
                 <label for="image_url">Image</label>
-                <input type="text" name="image_url" id="image_url">
+                <input type="text" name="image_url" id="image_url" value="<% if (editing) { %><%= farmer.image_url %><% } %>"
+                required>
+            </div>
+            <div class="form-control">
+                <label for="social_first">Social_Email</label>
+                <input type="text" name="social_first" id="social_first" value="<% if (editing) { %><%= farmer.social_first %><% } %>" required>
+            </div>
+            <div class="form-control">
+                <label for="social_second">Social_instagram</label>
+                <input type="text" name="social_second" id="social_second" value="<% if (editing) { %><%= farmer.social_second %><% } %>" required>
             </div>
 
             <button class="btn" type="submit"><% if (editing) { %>Update Farmer<% } else { %>Add Farmer<% } %></button>

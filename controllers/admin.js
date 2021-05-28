@@ -142,7 +142,7 @@ exports.postDeleteProduct = (req, res, next) => {
   console.log("================ Done deleting ===============");
 };
 
-//***********CATEGORIES*************
+//******************CATEGORIES******************
 
 exports.getAddCategory = (req, res, next) => {
   res.render("admin/edit-category", {
@@ -160,7 +160,7 @@ exports.postAddCategory = (req, res, next) => {
   })
     .then((result) => {
       console.log("======== Category was added to DB ========");
-      res.redirect("/admin/categories");
+      res.redirect("/products");
     })
     .catch((err) => {
       console.log(err);
@@ -212,9 +212,10 @@ exports.postEditCategory = (req, res, next) => {
 
 exports.getCategories = (req, res, next) => {
   Category.findAll()
-    .then((categories) => {
+    .then((extractedCategories) => {
+      categories = [...extractedCategories];
       res.render("admin/categories", {
-        categs: categories,
+        categories: categories,
         pageTitle: "Admin Categories",
         path: "/admin/categories",
       });
@@ -225,10 +226,21 @@ exports.getCategories = (req, res, next) => {
 };
 
 exports.postDeleteCategory = (req, res, next) => {
-  const CategId = req.body.category_id;
+  const categId = req.body.category_id;
+  Category.findByPk(categId)
+    .then((category) => {
+      return category.destroy().then((result) => {
+        console.log(`Deleting categorie from DB with ID: ${categId}`);
+        res.redirect("categories");
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  console.log("============Done Deleting =============");
 };
 
-//********FARMERS**********
+//******************FARMERS******************
 exports.getAddFarmer = (req, res, next) => {
   res.render("admin/edit-farmer", {
     pageTitle: "Add Farmer",
@@ -242,12 +254,16 @@ exports.postAddFarmer = (req, res, next) => {
   const farmer_title = req.body.farmer_title;
   const description = req.body.description;
   const image_url = req.body.image_url;
+  const social_first = req.body.social_first;
+  const social_second = req.body.social_second;
 
   Farmer.create({
     farmer_id: farmer_id,
     farmer_title: farmer_title,
     description: description,
     image_url: image_url,
+    social_first: social_first,
+    social_second: social_second,
   })
     .then((result) => {
       console.log("======== Farmer was added to DB ========");
@@ -281,7 +297,32 @@ exports.getEditFarmer = (req, res, next) => {
     });
 };
 
-exports.postEditFarmer = (req, res, next) => {};
+exports.postEditFarmer = (req, res, next) => {
+  const farmId = req.body.farmer_id;
+  const updatedFarmerTitle = req.body.farmer_title;
+  const updatedDescription = req.body.description;
+  const updatedImageUrl = req.body.image_url;
+  const updatedSocialFirst = req.body.social_first;
+  const updatedSocialSecond = req.body.social_second;
+
+  Farmer.findByPk(farmId)
+    .then((farmer) => {
+      farmer.farmer_id = farmId;
+      farmer.farmer_title = updatedFarmerTitle;
+      farmer.description = updatedDescription;
+      farmer.image_url = updatedImageUrl;
+      farmer.social_first = updatedSocialFirst;
+      farmer.social_second = updatedSocialSecond;
+      return farmer.save();
+    })
+    .then((result) => {
+      console.log(`Updated farmer in DB: ${updatedFarmerTitle}`);
+      res.redirect("/admin/farmers");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
 
 exports.getFarmers = (req, res, next) => {
   Farmer.findAll()
@@ -295,6 +336,21 @@ exports.getFarmers = (req, res, next) => {
     .catch((err) => {
       console.log(err);
     });
+};
+
+exports.postDeleteFarmer = (req, res, next) => {
+  const farmId = req.body.farmer_id;
+  Farmer.findByPk(farmId)
+    .then((farmer) => {
+      return farmer.destroy().then((result) => {
+        console.log(`Deleting from DB farmer with ID: ${farmId}`);
+        res.redirect("farmers");
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  console.log("================ Done deleting ===============");
 };
 //POSST DELETE CATEGORIES
 
