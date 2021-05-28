@@ -18,21 +18,5 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, proces
         }
     }
 );
-// const sequelize = new Sequelize(
-//     process.env.DB_CONNECTION_STRING //, {}
-//     , null
-//     , null
-//     , {
-//         dialect: 'mssql',
-//         pool: {
-//             max: 50,
-//             min: 1,
-//             idle: 10000
-//         },
-//         dialectOptions: {
-//             encrypt: true
-//         }
-//     }
-// );
 
 module.exports = sequelize;

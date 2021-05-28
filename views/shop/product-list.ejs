@@ -9,7 +9,8 @@
                 <section id="posts">
                     <div class="row">
                         <div class="col-md-2">
-                            <%- include('../includes/category.ejs') %>
+                            <%- include('../includes/category.ejs')
+                                %>
                         </div>
                         <div class="col-md-10 py-5">
                             <% if (prods.length> 0) { %>
@@ -26,12 +27,6 @@
                                                         product.title%>
                                                 </h1>
                                             </header>
-                                            <div>
-                                                <h1>ID: <%=
-                                                        product.product_id
-                                                        %>
-                                                </h1>
-                                            </div>
                                             <div
                                                 class="card__image">
                                                 <img src="<%= product.small_image_url %>"
