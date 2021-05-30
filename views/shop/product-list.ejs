@@ -9,9 +9,22 @@
                 <section id="posts">
                     <div class="row">
                         <div class="col-md-2">
-                            <%- include('../includes/category.ejs')
-                                %>
+                            <h1>Categories</h1>
+                            <% if (categories.length>0) { %>
+                                <ul>
+                                    <% for (let category of
+                                        categories) {%>
+                                        <li>
+                                            <h6>
+                                                <%=
+                                                    category.category_name%>
+                                            </h6>
+                                        </li>
+                                        <% } %>
+                                </ul>
+                                <% } %>
                         </div>
+
                         <div class="col-md-10 py-5">
                             <% if (prods.length> 0) { %>
                                 <div class="grid">
@@ -23,8 +36,7 @@
                                                 class="card__header">
                                                 <h1
                                                     class="product__title">
-                                                    <%=
-                                                        product.title%>
+                                                    <%=product.title%>
                                                 </h1>
                                             </header>
                                             <div

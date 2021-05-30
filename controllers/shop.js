@@ -9,11 +9,40 @@ const dbFetcher = new DbFetcher();
 
 exports.getProducts = (req, res, next) =>
 {
-  Product.findAll()
-    .then((products) =>
+  // dbFetcher.getAllItems().then((result) =>
+  // {
+  let categories = [];
+  Category.findAll()
+    .then((extractedCategories) =>
     {
+      categories = [...extractedCategories];
+      console.log("categories: ", categories);
+    })
+    .then(() =>
+    {
+      Product.findAll()
+        .then((products) =>
+        {
+          res.render("shop/product-list", {
+            prods: products,
+            categories: categories,
+            pageTitle: "All Products",
+            path: "/products",
+          });
+        })
+        .catch((err) => console.log(err));
+    })
+    .catch((err) => console.log(err));
+};
+
+exports.getCategories = (req, res, next) =>
+{
+  Category.findAll()
+    .then((extractedCategories) =>
+    {
+      categories = [...extractedCategories];
       res.render("shop/product-list", {
-        prods: products,
+        categories: categories,
         pageTitle: "All Products",
         path: "/products",
         isAuthenticated: req.isLoggedIn
@@ -25,10 +54,11 @@ exports.getProducts = (req, res, next) =>
 exports.getFarmers = (req, res, next) =>
 {
   Farmer.findAll()
-    .then((result) =>
+    .then((extractedFarmers) =>
     {
-      res.render("shop/farmers", {
-        farmers: result,
+      farmers = [...extractedFarmers];
+      res.render("shop/farmer-list", {
+        farmers: farmers,
         pageTitle: "Farmers",
         path: "/farmers",
         isAuthenticated: req.isLoggedIn
@@ -38,6 +68,28 @@ exports.getFarmers = (req, res, next) =>
     {
       console.log(err);
     });
+};
+
+exports.getSingleCategory = (req, res, next) =>
+{
+  const categId = req.params.categoryId;
+  Category.findByPk(categId, (category) =>
+  {
+    console.log(category);
+  });
+  console.log(categId);
+  res.redirect("/");
+};
+
+exports.getSingleFarmer = (req, res, next) =>
+{
+  const farmId = req.params.farmerId;
+  Farmer.findByPk(farmId, (farmer) =>
+  {
+    console.log(farmer);
+  });
+  console.log(farmId);
+  res.redirect("/farmers");
 };
 
 exports.getSingleProduct = (req, res, next) =>
