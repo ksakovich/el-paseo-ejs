@@ -67,6 +67,8 @@ sequelize
     .sync()
     .then((result) =>
     {
+        // console.log("req.session.user._id", req.session.user._id);
+        // return User.findByPk(req.session.user._id);
         return User.findByPk(1);
     })
     .then((user) =>

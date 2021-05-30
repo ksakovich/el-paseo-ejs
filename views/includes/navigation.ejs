@@ -18,51 +18,54 @@
         <a class="<%= path === '/products' ? 'active' : '' %>"
           href="/products">Products</a>
       </li>
-      <li class="main-header__item">
-        <a class="<%= path === '/cart' ? 'active' : '' %>"
-          href="/cart">Cart</a>
-      </li>
-      <li class="main-header__item">
-        <a class="<%= path === '/orders' ? 'active' : '' %>"
-          href="/orders">Orders</a>
-      </li>
-      <li class="main-header__item">
-        <a class="<%= path === '/farmers' ? 'active' : '' %>"
-          href="/farmers">Farmers
-        </a>
-      </li>
-      <li class="main-header__item">
-        <a class="<%= path === '/admin/add-farmer' ? 'active' : '' %>"
-          href="/admin/add-farmer">Add Farmer
-        </a>
-      </li>
-      <li class="main-header__item">
-        <a class="<%= path === '/admin/farmers' ? 'active' : '' %>"
-          href="/admin/farmers">Admin Farmers
-        </a>
-      </li>
-      <% if(isAuthenticated) { %>
+      <% if(isAuthenticated){ %>
         <li class="main-header__item">
-          <a class="<%= path === '/admin/add-product' ? 'active' : '' %>"
-            href="/admin/add-product">Add Product
-          </a>
+          <a class="<%= path === '/cart' ? 'active' : '' %>"
+            href="/cart">Cart</a>
         </li>
+
         <li class="main-header__item">
-          <a class="<%= path === '/admin/add-category' ? 'active' : '' %>"
-            href="/admin/add-category">Add Category
-          </a>
+          <a class="<%= path === '/orders' ? 'active' : '' %>"
+            href="/orders">Orders</a>
         </li>
         <% } %>
           <li class="main-header__item">
-            <a class="<%= path === '/admin/products' ? 'active' : '' %>"
-              href="/admin/products">Admin Products
+            <a class="<%= path === '/farmers' ? 'active' : '' %>"
+              href="/farmers">Farmers
             </a>
           </li>
           <li class="main-header__item">
-            <a class="<%= path === '/admin/categories' ? 'active' : '' %>"
-              href="/admin/categories">Admin Categories
+            <a class="<%= path === '/admin/add-farmer' ? 'active' : '' %>"
+              href="/admin/add-farmer">Add Farmer
             </a>
           </li>
+          <li class="main-header__item">
+            <a class="<%= path === '/admin/farmers' ? 'active' : '' %>"
+              href="/admin/farmers">Admin Farmers
+            </a>
+          </li>
+          <% if(isAuthenticated) { %>
+            <li class="main-header__item">
+              <a class="<%= path === '/admin/add-product' ? 'active' : '' %>"
+                href="/admin/add-product">Add Product
+              </a>
+            </li>
+            <li class="main-header__item">
+              <a class="<%= path === '/admin/add-category' ? 'active' : '' %>"
+                href="/admin/add-category">Add Category
+              </a>
+            </li>
+            <% } %>
+              <li class="main-header__item">
+                <a class="<%= path === '/admin/products' ? 'active' : '' %>"
+                  href="/admin/products">Admin Products
+                </a>
+              </li>
+              <li class="main-header__item">
+                <a class="<%= path === '/admin/categories' ? 'active' : '' %>"
+                  href="/admin/categories">Admin Categories
+                </a>
+              </li>
     </ul>
 
     <% if( path==='/products' ) {%>
