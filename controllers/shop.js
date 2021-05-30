@@ -28,7 +28,7 @@ exports.getProducts = (req, res, next) =>
             categories: categories,
             pageTitle: "All Products",
             path: "/products",
-            isAuthenticated: req.isLoggedIn
+            isAuthenticated: req.session.isLoggedIn
           });
         })
         .catch((err) => console.log(err));
@@ -46,7 +46,7 @@ exports.getCategories = (req, res, next) =>
         categories: categories,
         pageTitle: "All Products",
         path: "/products",
-        isAuthenticated: req.isLoggedIn
+        isAuthenticated: req.session.isLoggedIn
       });
     })
     .catch((err) => console.log(err));
@@ -62,7 +62,7 @@ exports.getFarmers = (req, res, next) =>
         farmers: farmers,
         pageTitle: "Farmers",
         path: "/farmers",
-        isAuthenticated: req.isLoggedIn
+        isAuthenticated: req.session.isLoggedIn
       });
     })
     .catch((err) =>
@@ -103,7 +103,7 @@ exports.getSingleProduct = (req, res, next) =>
         product: singleProduct.dataValues,
         pageTitle: singleProduct.title,
         path: "/products",
-        isAuthenticated: req.isLoggedIn
+        isAuthenticated: req.session.isLoggedIn
       });
     })
     .catch((err) =>
@@ -121,7 +121,7 @@ exports.getIndex = (req, res, next) =>
         prods: products,
         pageTitle: "Shop",
         path: "/",
-        isAuthenticated: req.isLoggedIn
+        isAuthenticated: req.session.isLoggedIn
       });
     })
     .catch((err) =>
@@ -144,7 +144,7 @@ exports.getCart = (req, res, next) =>
             path: "/cart",
             pageTitle: "Your Cart",
             products: cartProducts,
-            isAuthenticated: req.isLoggedIn
+            isAuthenticated: req.session.isLoggedIn
           });
         })
         .catch((err) => console.log(err));
@@ -234,7 +234,7 @@ exports.getOrders = (req, res, next) =>
         path: "/orders",
         pageTitle: "Your Orders",
         orders: orders,
-        isAuthenticated: req.isLoggedIn
+        isAuthenticated: req.session.isLoggedIn
       });
     })
     .catch((err) =>
@@ -290,6 +290,6 @@ exports.getCheckout = (req, res, next) =>
   res.render("shop/checkout", {
     path: "/checkout",
     pageTitle: "Checkout",
-    isAuthenticated: req.isLoggedIn
+    isAuthenticated: req.session.isLoggedIn
   });
 };

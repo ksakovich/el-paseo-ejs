@@ -63,8 +63,8 @@ app.use(errorController.get404);
 Associations.associate();
 
 sequelize
-    .sync({ force: true })
-    // .sync()
+    // .sync({ force: true })
+    .sync()
     .then((result) =>
     {
         return User.findByPk(1);
