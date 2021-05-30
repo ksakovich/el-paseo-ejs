@@ -37,8 +37,6 @@ app.use(
         saveUninitialized: true
     })
 );
-console.log('**************************************************************************** db: ', sequelize);
-console.log('**************************************************************************** store: ', store);
 
 // app.use(session({ secret: 'dummy secret', resave: false, saveUninitialized: false }));
 
@@ -98,25 +96,8 @@ sequelize
                 return user.createCart();
             }
         });
-
-        console.log(user);
     })
     .then((cart) =>
-    // {
-    //     return SessionModel.create({
-    //         sid: sessionID,
-    //         isLoggedIn: true,
-    //         userUserId: req.user.user_id
-    //     })
-    //         .then(result =>
-    //         {
-    //             console.log("Session worked!");
-    //         }).catch(err =>
-    //         {
-    //             console.log(err);
-    //         });
-    // })
-    // .then(result =>
     {
         console.log(cart);
 

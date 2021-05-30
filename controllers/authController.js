@@ -32,39 +32,15 @@ exports.getLogin = (req, res, next) =>
 exports.postLogin = (req, res, next) =>
 {
     const cookies = cookie.parse(req.headers.cookie || '');
-    const sessionID = cookies['connect.sid']
-    console.log("sessionID: ", sessionID);
-    // console.log(SessionModel);
-
-    console.log('session', req.session)
+    const sessionID = cookies['connect.sid'];
 
     req.session.userId = req.user.user_id;
 
-    // console.log('user', req.user)
-    // console.log('user.user_id', req.user.user_id)
-
-
     req.session.save(function (err)
     {
-        console.log(err)
-        console.log('truskdgjdhlfkjgl;')
-    })
+        console.log(err);
+    });
 
-    // console.log(req.user.getSessionModel());
-    // SessionModel.create({
-    //     sid: sessionID,
-    //     isLoggedIn: true,
-    //     userUserId: req.user.user_id
-    // })
-
-
-    // .then(result =>
-    // {
-    //     console.log("Session worked!");
-    // }).catch(err =>
-    // {
-    //     console.log(err);
-    // });
     req.session.isLoggedIn = true;
     res.redirect('/');
 };

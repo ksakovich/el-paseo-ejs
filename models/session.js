@@ -10,17 +10,12 @@ const Session = sequelize.define("sessions", {
         primaryKey: true,
     },
     isLoggedIn: Sequelize.BOOLEAN,
-    // userId: Sequelize.STRING,
     expires: Sequelize.DATE,
     data: Sequelize.TEXT,
 });
 
 function extendDefaultFields(defaults, session)
 {
-    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++    defaults: ")
-    // console.log(defaults);
-    console.log('session.userId', session.userId)
-
     return {
         data: defaults.data,
         isLoggedIn: session.isLoggedIn,
@@ -34,5 +29,4 @@ const store = new SequelizeStore({
     table: "sessions",
     extendDefaultFields: extendDefaultFields,
 });
-// store.sync()
 module.exports = { Session, store };

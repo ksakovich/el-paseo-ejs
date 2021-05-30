@@ -76,9 +76,9 @@ exports.getSingleCategory = (req, res, next) =>
   const categId = req.params.categoryId;
   Category.findByPk(categId, (category) =>
   {
-    console.log(category);
+    // console.log(category);
   });
-  console.log(categId);
+  // console.log(categId);
   res.redirect("/");
 };
 
@@ -87,7 +87,7 @@ exports.getSingleFarmer = (req, res, next) =>
   const farmId = req.params.farmerId;
   Farmer.findByPk(farmId, (farmer) =>
   {
-    console.log(farmer);
+    // console.log(farmer);
   });
   console.log(farmId);
   res.redirect("/farmers");
