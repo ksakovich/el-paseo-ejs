@@ -4,7 +4,7 @@
     <body>
         <%- include('../includes/navigation.ejs') %>
             <main>
-                <% let sutotal=0 %>
+                <% let subtotal=0 %>
                     <% if (products.length> 0) { %>
                         <div
                             class="small-container cart-page">
@@ -17,8 +17,10 @@
                                 <%
                                     products.forEach(product=>
                                     { %>
-                                    <% sutotal
-                                        +=product.price; %>
+                                    <% subtotal
+                                        +=product.price *
+                                        product.cart_item.quantity;
+                                        %>
                                         <tr>
                                         <tr>
                                             <td>
@@ -33,8 +35,8 @@
                                                         </p>
                                                         <small>Price:
                                                             $
-                                                            <%=
-                                                                product.price%>
+                                                            <%=product.price
+                                                                %>
                                                         </small>
                                                         <br>
                                                         <small>
@@ -58,7 +60,7 @@
                                                     value="<%= product.cart_item.quantity%>">
                                             </td>
                                             <td>$<%=
-                                                    product.price%>
+                                                    subtotal%>
                                             </td>
                                         </tr>
                                         </tr>
@@ -73,8 +75,8 @@
                                                 </td>
                                                 <td>
                                                     $ <%=
-                                                        sutotal%>
-                                                        <% total=sutotal
+                                                        subtotal%>
+                                                        <% total=subtotal
                                                             +
                                                             expenses%>
                                                 </td>
