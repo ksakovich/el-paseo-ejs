@@ -15,7 +15,8 @@ exports.getAddProduct = (req, res, next) =>
   });
 };
 
-exports.postAddProduct = (req, res, next) => {
+exports.postAddProduct = (req, res, next) =>
+{
   const category_id = req.body.category_id;
   const title = req.body.title;
   const vendor_id = req.body.vendor_id;
@@ -41,18 +42,22 @@ exports.postAddProduct = (req, res, next) => {
     unit: unit,
     quantity_in_stock: quantity_in_stock,
   })
-    .then((result) => {
+    .then((result) =>
+    {
       console.log("======== Product was added to DB ========");
       res.redirect("/");
     })
-    .catch((err) => {
+    .catch((err) =>
+    {
       console.log(err);
     });
 };
 
-exports.getEditProduct = (req, res, next) => {
+exports.getEditProduct = (req, res, next) =>
+{
   const editMode = req.query.edit;
-  if (!editMode) {
+  if (!editMode)
+  {
     return res.redirect("/");
   }
   const prodId = req.params.productId;
@@ -69,9 +74,11 @@ exports.getEditProduct = (req, res, next) => {
       product: product,
       isAuthenticated: req.isLoggedIn
     });
+  })
 };
 
-exports.postEditProduct = (req, res, next) => {
+exports.postEditProduct = (req, res, next) =>
+{
   const prodId = req.body.product_id;
   const updatedCategoryId = req.body.category_id;
   const updatedTitle = req.body.title;
@@ -130,14 +137,17 @@ exports.postDeleteProduct = (req, res, next) =>
 {
   const prodId = req.body.product_id;
   Product.findByPk(prodId)
-    .then((product) => {
-      return product.destroy().then((result) => {
+    .then((product) =>
+    {
+      return product.destroy().then((result) =>
+      {
         console.log(`Deleting from DB product with ID: ${prodId}`);
         res.redirect("/admin/products");
         // res.redirect('/');
       });
     })
-    .catch((err) => {
+    .catch((err) =>
+    {
       console.log(err);
     });
   console.log("================ Done deleting ===============");
@@ -145,38 +155,47 @@ exports.postDeleteProduct = (req, res, next) =>
 
 //******************CATEGORIES******************
 
-exports.getAddCategory = (req, res, next) => {
+exports.getAddCategory = (req, res, next) =>
+{
   res.render("admin/edit-category", {
     pageTitle: "Add Category",
     path: "/admin/add-category",
     editing: false,
+    isAuthenticated: req.isLoggedIn
   });
 };
 
-exports.postAddCategory = (req, res, next) => {
+exports.postAddCategory = (req, res, next) =>
+{
   const category_name = req.body.category_name;
 
   Category.create({
     category_name: category_name,
   })
-    .then((result) => {
+    .then((result) =>
+    {
       console.log("======== Category was added to DB ========");
       res.redirect("/products");
     })
-    .catch((err) => {
+    .catch((err) =>
+    {
       console.log(err);
     });
 };
 
-exports.getEditCategory = (req, res, next) => {
+exports.getEditCategory = (req, res, next) =>
+{
   const editMode = req.query.edit;
-  if (!editMode) {
+  if (!editMode)
+  {
     return res.redirect("/");
   }
   const CategId = req.params.categoryId;
   Category.findByPk(CategId)
-    .then((category) => {
-      if (!category) {
+    .then((category) =>
+    {
+      if (!category)
+      {
         return res.redirect("/");
       }
       res.render("admin/edit-category", {
@@ -184,73 +203,90 @@ exports.getEditCategory = (req, res, next) => {
         path: "/admin/edit-category",
         editing: editMode,
         category: category,
+        isAuthenticated: req.isLoggedIn
       });
     })
-    .catch((err) => {
+    .catch((err) =>
+    {
       console.log(err);
     });
 };
 
 //POST EDIT CATEGORY
-exports.postEditCategory = (req, res, next) => {
+exports.postEditCategory = (req, res, next) =>
+{
   const CategId = req.body.category_id;
   const UpdatedCategoryName = req.body.category_name;
 
   Category.findByPk(CategId)
-    .then((category) => {
+    .then((category) =>
+    {
       category.category_id = CategId;
       category.category_name = UpdatedCategoryName;
       return category.save();
     })
-    .then((result) => {
+    .then((result) =>
+    {
       console.log("Updated category in DB: ${UpdatedCategoryName}");
       res.redirect("/admin/categories");
     })
-    .catch((err) => {
+    .catch((err) =>
+    {
       console.log(err);
     });
 };
 
-exports.getCategories = (req, res, next) => {
+exports.getCategories = (req, res, next) =>
+{
   Category.findAll()
-    .then((extractedCategories) => {
+    .then((extractedCategories) =>
+    {
       categories = [...extractedCategories];
       res.render("admin/categories", {
         categories: categories,
         pageTitle: "Admin Categories",
         path: "/admin/categories",
+        isAuthenticated: req.isLoggedIn
       });
     })
-    .catch((err) => {
+    .catch((err) =>
+    {
       console.log(err);
     });
 };
 
-exports.postDeleteCategory = (req, res, next) => {
+exports.postDeleteCategory = (req, res, next) =>
+{
   const categId = req.body.category_id;
   Category.findByPk(categId)
-    .then((category) => {
-      return category.destroy().then((result) => {
+    .then((category) =>
+    {
+      return category.destroy().then((result) =>
+      {
         console.log(`Deleting categorie from DB with ID: ${categId}`);
         res.redirect("categories");
       });
     })
-    .catch((err) => {
+    .catch((err) =>
+    {
       console.log(err);
     });
   console.log("============Done Deleting =============");
 };
 
 //******************FARMERS******************
-exports.getAddFarmer = (req, res, next) => {
+exports.getAddFarmer = (req, res, next) =>
+{
   res.render("admin/edit-farmer", {
     pageTitle: "Add Farmer",
     path: "/admin/add-farmer",
     editing: false,
+    isAuthenticated: req.isLoggedIn
   });
 };
 
-exports.postAddFarmer = (req, res, next) => {
+exports.postAddFarmer = (req, res, next) =>
+{
   const farmer_id = req.body.farmer_id;
   const farmer_title = req.body.farmer_title;
   const description = req.body.description;
@@ -266,24 +302,30 @@ exports.postAddFarmer = (req, res, next) => {
     social_first: social_first,
     social_second: social_second,
   })
-    .then((result) => {
+    .then((result) =>
+    {
       console.log("======== Farmer was added to DB ========");
       res.redirect("/farmers");
     })
-    .catch((err) => {
+    .catch((err) =>
+    {
       console.log(err);
     });
 };
 
-exports.getEditFarmer = (req, res, next) => {
+exports.getEditFarmer = (req, res, next) =>
+{
   const editMode = req.query.edit;
-  if (!editMode) {
+  if (!editMode)
+  {
     return res.redirect("/");
   }
   const farmId = req.params.farmerId;
   Farmer.findByPk(farmId)
-    .then((farmer) => {
-      if (!farmer) {
+    .then((farmer) =>
+    {
+      if (!farmer)
+      {
         return res.redirect("/");
       }
       res.render("admin/edit-farmer", {
@@ -291,14 +333,17 @@ exports.getEditFarmer = (req, res, next) => {
         path: "/admin/edit-farmer",
         editing: editMode,
         farmer: farmer,
+        isAuthenticated: req.isLoggedIn
       });
     })
-    .catch((err) => {
+    .catch((err) =>
+    {
       console.log(err);
     });
 };
 
-exports.postEditFarmer = (req, res, next) => {
+exports.postEditFarmer = (req, res, next) =>
+{
   const farmId = req.body.farmer_id;
   const updatedFarmerTitle = req.body.farmer_title;
   const updatedDescription = req.body.description;
@@ -307,7 +352,8 @@ exports.postEditFarmer = (req, res, next) => {
   const updatedSocialSecond = req.body.social_second;
 
   Farmer.findByPk(farmId)
-    .then((farmer) => {
+    .then((farmer) =>
+    {
       farmer.farmer_id = farmId;
       farmer.farmer_title = updatedFarmerTitle;
       farmer.description = updatedDescription;
@@ -316,39 +362,49 @@ exports.postEditFarmer = (req, res, next) => {
       farmer.social_second = updatedSocialSecond;
       return farmer.save();
     })
-    .then((result) => {
+    .then((result) =>
+    {
       console.log(`Updated farmer in DB: ${updatedFarmerTitle}`);
       res.redirect("/admin/farmers");
     })
-    .catch((err) => {
+    .catch((err) =>
+    {
       console.log(err);
     });
 };
 
-exports.getFarmers = (req, res, next) => {
+exports.getFarmers = (req, res, next) =>
+{
   Farmer.findAll()
-    .then((result) => {
+    .then((result) =>
+    {
       res.render("admin/farmers", {
         farmers: result,
         pageTitle: "Admin Farmers",
         path: "/admin/farmers",
+        isAuthenticated: req.isLoggedIn
       });
     })
-    .catch((err) => {
+    .catch((err) =>
+    {
       console.log(err);
     });
 };
 
-exports.postDeleteFarmer = (req, res, next) => {
+exports.postDeleteFarmer = (req, res, next) =>
+{
   const farmId = req.body.farmer_id;
   Farmer.findByPk(farmId)
-    .then((farmer) => {
-      return farmer.destroy().then((result) => {
+    .then((farmer) =>
+    {
+      return farmer.destroy().then((result) =>
+      {
         console.log(`Deleting from DB farmer with ID: ${farmId}`);
         res.redirect("farmers");
       });
     })
-    .catch((err) => {
+    .catch((err) =>
+    {
       console.log(err);
     });
   console.log("================ Done deleting ===============");

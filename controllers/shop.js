@@ -28,6 +28,7 @@ exports.getProducts = (req, res, next) =>
             categories: categories,
             pageTitle: "All Products",
             path: "/products",
+            isAuthenticated: req.isLoggedIn
           });
         })
         .catch((err) => console.log(err));
