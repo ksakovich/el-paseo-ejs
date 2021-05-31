@@ -2,23 +2,20 @@ const { Session } = require("express-session");
 const SessionModel = require('../models/session');
 const cookie = require('cookie');
 
+
+exports.getSignup = (req, res, next) =>
+{
+    res.render('auth/signup', {
+        path: '/signup',
+        pageTitle: 'Signup',
+        isAuthenticated: false
+    });
+};
+
+exports.postSignup = (req, res, next) => { };
+
 exports.getLogin = (req, res, next) =>
 {
-    // const cookie = req.get('Cookie');
-    // let cookieAr = cookie.split('; ');
-    // console.log(cookieAr);
-    // const index = cookieAr.findIndex((element) => element === 'loggedIn=true');
-    // const loggedIn = cookieAr[index];
-    // let isLoggedIn;
-    // if (loggedIn)
-    // {
-    //     isLoggedIn = true;
-    // }
-    // else
-    // {
-    //     isLoggedIn = false;
-    // }
-
     console.log(req.session);
     console.log(req.user);
     console.log('isAuthenticated', req.session.isLoggedIn)
