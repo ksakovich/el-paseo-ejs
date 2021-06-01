@@ -56,10 +56,60 @@
           >Farmers
         </a>
       </li>
+      <li class="nav-item">
+        <a
+          class="nav-link <%= path === '/admin/add-farmer' ? 'active' : '' %>"
+          href="/admin/add-farmer"
+          id="navbarfontdeco"
+          >Add Farmer
+        </a>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link <%= path === '/admin/farmers' ? 'active' : '' %>"
+          href="/admin/farmers"
+          id="navbarfontdeco"
+          >Admin Farmers
+        </a>
+      </li>
+      <% if(isAuthenticated) { %>
+      <li class="nav-item">
+        <a
+          class="nav-link <%= path === '/admin/add-product' ? 'active' : '' %>"
+          href="/admin/add-product"
+          id="navbarfontdeco"
+          >Add Product
+        </a>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link <%= path === '/admin/add-category' ? 'active' : '' %>"
+          href="/admin/add-category"
+          id="navbarfontdeco"
+          >Add Category
+        </a>
+      </li>
+      <% } %>
+      <li class="nav-item">
+        <a
+          class="nav-link <%= path === '/admin/products' ? 'active' : '' %>"
+          href="/admin/products"
+          id="navbarfontdeco"
+          >Admin Products
+        </a>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link <%= path === '/admin/categories' ? 'active' : '' %>"
+          href="/admin/categories"
+          id="navbarfontdeco"
+          >Admin Categories
+        </a>
+      </li>
     </ul>
 
     <% if( path==='/products' ) {%>
-    <form class="form-inline ml-auto">
+    <form class="form-inline mr-auto">
       <input type="text" class="form-control mr-2" placeholder="Search" />
       <button class="btn btn-primary">
         <i class="fas fa-search"></i> Search
