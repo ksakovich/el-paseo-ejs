@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const session = require('express-session');
 // const SequelizeStore = require("connect-session-sequelize")(session.Store);
 const sequelize = require("./util/sequelize");
-const { store } = require('./models/session');
+const { store, Session } = require('./models/session');
 const { SessionModel } = require('./models/session');
 const errorController = require("./controllers/error");
 
@@ -38,21 +38,32 @@ app.use(
     })
 );
 
+
 // app.use(session({ secret: 'dummy secret', resave: false, saveUninitialized: false }));
 
 app.use((req, res, next) =>
 {
-    User.findByPk(1)
-        .then((user) =>
+    if (!req.user)
+    {
+        console.log('req.session.userId', req.session.userId)
+        if (req.session.userId != null)
         {
-            req.user = user;
-            next();
-        })
-        .catch((err) =>
-        {
-            console.log(err);
-        });
+            User.findByPk(req.session.userId)
+                .then((user) =>
+                {
+                    console.log('user', user)
+
+                    req.user = user;
+                })
+                .catch((err) =>
+                {
+                    console.log(err);
+                });
+        }
+    }
+    next();
 });
+
 
 app.use("/admin", adminRoutes);
 app.use(shopRoutes);
@@ -60,7 +71,9 @@ app.use(authRoutes);
 
 app.use(errorController.get404);
 
+
 Associations.associate();
+
 
 sequelize
     // .sync({ force: true })
@@ -69,39 +82,40 @@ sequelize
     {
         // console.log("req.session.user._id", req.session.user._id);
         // return User.findByPk(req.session.user._id);
-        return User.findByPk(1);
+        // return User.findByPk(1);
     })
-    .then((user) =>
-    {
-        if (!user)
-        {
-            return User.create({
-                user_name: "Kirill",
-                email: "test@test.com",
-                is_admin: true,
-            });
-        }
-        return user;
-    })
-    .then((user) =>
-    {
-        user.getCart().then((cart) =>
-        {
-            if (cart)
-            {
-                console.log("rertiving cart");
-                return cart;
-            } else
-            {
+    // .then((user) =>
+    // {
+    //     if (!user)
+    //     {
+    //         return User.create({
+    //             user_name: "Kirill",
+    //             email: "test@test.com",
+    //             password: '123',
+    //             is_admin: true,
+    //         });
+    //     }
+    //     return user;
+    // })
+    // .then((user) =>
+    // {
+    //     user.getCart().then((cart) =>
+    //     {
+    //         if (cart)
+    //         {
+    //             console.log("rertiving cart");
+    //             return cart;
+    //         } else
+    //         {
 
-                console.log("crating cart");
-                return user.createCart();
-            }
-        });
-    })
-    .then((cart) =>
+    //             console.log("crating cart");
+    //             return user.createCart();
+    //         }
+    //     });
+    // })
+    .then((result) =>
     {
-        console.log(cart);
+        // console.log(cart);
 
         console.log();
         console.log();
