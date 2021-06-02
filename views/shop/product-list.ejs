@@ -9,7 +9,7 @@
                 <section id="posts">
                     <div class="row">
                         <div class="col-md-2">
-                            <h1>Categories</h1>
+                            <h1 class="font-weight-bold py-5">Categories</h1>
                             <% if (categories.length>0) { %>
                                 <ul>
                                     <% for (let category of
@@ -26,6 +26,10 @@
                         </div>
 
                         <div class="col-md-10 py-5">
+                            <form class="search-container d-flex mb-5">
+                                <input class="form-control mr-2" type="search" placeholder="Search" aria-label="Search">
+                                <button class="btn btn-outline-success" type="submit">Search</button>
+                            </form>
                             <% if (prods.length> 0) { %>
                                 <div class="grid">
                                     <% for (let product of

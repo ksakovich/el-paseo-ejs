@@ -1,5 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
 * {
   box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
 }
 
 body {
@@ -257,18 +260,18 @@ form {
   display: inline-block;
   padding: 0.25rem 1rem;
   text-decoration: none;
-  font: bolder;
-  border: 1px solid #77b345;
+  font-weight: 600;
+  border: 1px solid #48b83e;
   color: #fff;
-  background: #77b345;
-  border-radius: 3px;
+  background: #48b83e;
+  border-radius: 5px;
   cursor: pointer;
 }
 
 .btn:hover,
 .btn:active {
   background-color: #fff;
-  color: #77b345;
+  color: #48b83e;
   transition: 0.35s all;
 }
 
@@ -375,4 +378,9 @@ th:last-child {
 
 .button-checkout {
   text-align: right;
+}
+
+.search-container {
+  float: center;
+  margin-left: 45rem;
 }

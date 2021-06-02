@@ -36,36 +36,26 @@
           </li>
     </ul>
 
-    <% if( path==='/products' ) {%>
-      <form class="form-inline mr-auto">
-        <input type="text" class="form-control mr-2"
-          placeholder="Search" />
-        <button class="btn btn-primary">
-          <i class="fas fa-search"></i> Search
-        </button>
-      </form>
-      <% } %>
-
-        <ul class="main-header__item-list">
+        <ul class="navbar-nav ml-auto">
           <% if(!isAuthenticated) { %>
-            <li class="main-header__item">
-              <a class="<%= path === '/login' ? 'active' : '' %>"
-                href="/login">Login</a>
+            <li class="nav-item">
+              <a class="nav-link <%= path === '/login' ? 'active' : '' %>"
+                href="/login" id="navbarfontdeco">Login</a>
             </li>
-            <li class="main-header__item">
-              <a class="<%= path === '/signup' ? 'active' : '' %>"
-                href="/signup">Signup</a>
+            <li class="nav-item">
+              <a class="nav-link <%= path === '/signup' ? 'active' : '' %>"
+                href="/signup" id="navbarfontdeco">Signup</a>
             </li>
             <% } else { %>
-              <li class="main-header__item">
+              <li class="nav-item">
                 <form action="/logout" method="POST">
-                  <button type="submit">Logout</button>
+                  <button type="submit" class="btn btn-outline-warning">Logout</button>
                 </form>
               </li>
               <% } %>
-                <li>
+                <li class="nav-item">
                   <div>
-                    <h3>
+                    <h3 class="nav-link" id="navbarfontdeco">
                       <%=username %>
                     </h3>
                   </div>
@@ -73,25 +63,5 @@
         </ul>
 </nav>
 </header>
-
-<ul class="navbar-nav ml-auto">
-  <% if(!isAuthenticated) { %>
-    <li class="nav-item">
-      <a class="nav-link <%= path === '/login' ? 'active' : '' %>"
-        href="/login" id="navbarfontdeco">Login</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link <%= path === '/signup' ? 'active' : '' %>"
-        href="/signup" id="navbarfontdeco">Signup</a>
-    </li>
-    <% } else { %>
-      <li class="nav-item">
-        <form action="/logout" method="POST">
-          <button type="submit"
-            class="btn btn-outline-warning">Logout</button>
-        </form>
-      </li>
-      <% } %>
-</ul>
 </div>
 </nav>
