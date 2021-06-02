@@ -1,41 +1,98 @@
 <%- include('../includes/head.ejs') %>
     <link rel="stylesheet" href="/css/forms.css">
     <link rel="stylesheet" href="/css/product.css">
-</head>
+    </head>
 
-<body>
-   <%- include('../includes/navigation.ejs') %>
+    <body>
+        <% if (isAuthenticated && isAdmin){ %>
+            <%- include('../includes/admin-nav.ejs') %>
+                <% } else { %>
+                    <%- include('../includes/navigation.ejs')
+                        %>
+                        <% } %>
 
-    <main>
-        <form class="product-form" action="/admin/<% if (editing) { %>edit-farmer<% } else { %>add-farmer<% } %>" method="POST">
-            <% if (editing) { %><input type="hidden" value="<%= farmer.farmer_id %>" name="farmer_id"><% } %>
-            
-            <div class="form-control">
-                <label for="farmer_title">Farmer Title</label>
-                <input type="text" name="farmer_title" id="farmer_title" value="<% if (editing) { %><%= farmer.farmer_title %><% } %>" required>
-            </div>
-            <div class="form-control">
-                <label for="description">Description</label>
-                <textarea
-                    name="description"
-                    id="description"
-                    rows="3"><% if (editing) { %><%= farmer.description %><% } %></textarea>
-            </div>
-            <div class="form-control">
-                <label for="image_url">Image</label>
-                <input type="text" name="image_url" id="image_url" value="<% if (editing) { %><%= farmer.image_url %><% } %>"
-                required>
-            </div>
-            <div class="form-control">
-                <label for="social_first">Social_Email</label>
-                <input type="text" name="social_first" id="social_first" value="<% if (editing) { %><%= farmer.social_first %><% } %>" required>
-            </div>
-            <div class="form-control">
-                <label for="social_second">Social_instagram</label>
-                <input type="text" name="social_second" id="social_second" value="<% if (editing) { %><%= farmer.social_second %><% } %>" required>
-            </div>
+                            <main>
+                                <form class="product-form"
+                                    action="/admin/<% if (editing) { %>edit-farmer<% } else { %>add-farmer<% } %>"
+                                    method="POST">
+                                    <% if (editing) { %>
+                                        <input type="hidden"
+                                            value="<%= farmer.farmer_id %>"
+                                            name="farmer_id">
+                                        <% } %>
 
-            <button class="btn" type="submit"><% if (editing) { %>Update Farmer<% } else { %>Add Farmer<% } %></button>
-        </form>
-    </main>
-<%- include('../includes/end.ejs') %>
+                                            <div
+                                                class="form-control">
+                                                <label
+                                                    for="farmer_title">Farmer
+                                                    Title</label>
+                                                <input
+                                                    type="text"
+                                                    name="farmer_title"
+                                                    id="farmer_title"
+                                                    value="<% if (editing) { %><%= farmer.farmer_title %><% } %>"
+                                                    required>
+                                            </div>
+                                            <div
+                                                class="form-control">
+                                                <label
+                                                    for="description">Description</label>
+                                                <textarea
+                                                    name="description"
+                                                    id="description"
+                                                    rows="3"><% if (editing) { %><%= farmer.description %><% } %></textarea>
+                                            </div>
+                                            <div
+                                                class="form-control">
+                                                <label
+                                                    for="image_url">Image</label>
+                                                <input
+                                                    type="text"
+                                                    name="image_url"
+                                                    id="image_url"
+                                                    value="<% if (editing) { %><%= farmer.image_url %><% } %>"
+                                                    required>
+                                            </div>
+                                            <div
+                                                class="form-control">
+                                                <label
+                                                    for="social_first">Social_Email</label>
+                                                <input
+                                                    type="text"
+                                                    name="social_first"
+                                                    id="social_first"
+                                                    value="<% if (editing) { %><%= farmer.social_first %><% } %>"
+                                                    required>
+                                            </div>
+                                            <div
+                                                class="form-control">
+                                                <label
+                                                    for="social_second">Social_instagram</label>
+                                                <input
+                                                    type="text"
+                                                    name="social_second"
+                                                    id="social_second"
+                                                    value="<% if (editing) { %><%= farmer.social_second %><% } %>"
+                                                    required>
+                                            </div>
+
+                                            <button
+                                                class="btn"
+                                                type="submit">
+                                                <% if
+                                                    (editing)
+                                                    { %>
+                                                    Update
+                                                    Farmer<%
+                                                        }
+                                                        else
+                                                        { %>
+                                                        Add
+                                                        Farmer
+                                                        <% }
+                                                            %>
+                                            </button>
+                                </form>
+                            </main>
+                            <%- include('../includes/end.ejs')
+                                %>

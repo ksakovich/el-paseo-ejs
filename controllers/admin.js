@@ -12,7 +12,8 @@ exports.getAddProduct = (req, res, next) =>
     path: '/admin/add-product',
     editing: false,
     isAuthenticated: req.session.isLoggedIn,
-    username: req.user?.user_name ?? 'Guest'
+    username: req.user?.user_name ?? 'Guest',
+    isAdmin: req.user?.is_admin ?? false
   });
 };
 
@@ -74,7 +75,8 @@ exports.getEditProduct = (req, res, next) =>
       editing: editMode,
       product: product,
       isAuthenticated: req.session.isLoggedIn,
-      username: req.user?.user_name ?? 'Guest'
+      username: req.user?.user_name ?? 'Guest',
+      isAdmin: req.user?.is_admin ?? false
     });
   })
 };
@@ -128,7 +130,8 @@ exports.getProducts = (req, res, next) =>
       pageTitle: 'Admin Products',
       path: '/admin/products',
       isAuthenticated: req.session.isLoggedIn,
-      username: req.user?.user_name ?? 'Guest'
+      username: req.user?.user_name ?? 'Guest',
+      isAdmin: req.user?.is_admin ?? false
     });
   }).catch(err =>
   {
@@ -165,7 +168,8 @@ exports.getAddCategory = (req, res, next) =>
     path: "/admin/add-category",
     editing: false,
     isAuthenticated: req.session.isLoggedIn,
-    username: req.user?.user_name ?? 'Guest'
+    username: req.user?.user_name ?? 'Guest',
+    isAdmin: req.user?.is_admin ?? false
   });
 };
 
@@ -208,7 +212,8 @@ exports.getEditCategory = (req, res, next) =>
         editing: editMode,
         category: category,
         isAuthenticated: req.session.isLoggedIn,
-        username: req.user?.user_name ?? 'Guest'
+        username: req.user?.user_name ?? 'Guest',
+        isAdmin: req.user?.is_admin ?? false
       });
     })
     .catch((err) =>
@@ -252,7 +257,8 @@ exports.getCategories = (req, res, next) =>
         pageTitle: "Admin Categories",
         path: "/admin/categories",
         isAuthenticated: req.session.isLoggedIn,
-        username: req.user?.user_name ?? 'Guest'
+        username: req.user?.user_name ?? 'Guest',
+        isAdmin: req.user?.is_admin ?? false
       });
     })
     .catch((err) =>
@@ -288,7 +294,8 @@ exports.getAddFarmer = (req, res, next) =>
     path: "/admin/add-farmer",
     editing: false,
     isAuthenticated: req.session.isLoggedIn,
-    username: req.user?.user_name ?? 'Guest'
+    username: req.user?.user_name ?? 'Guest',
+    isAdmin: req.user?.is_admin ?? false
   });
 };
 
@@ -341,7 +348,8 @@ exports.getEditFarmer = (req, res, next) =>
         editing: editMode,
         farmer: farmer,
         isAuthenticated: req.session.isLoggedIn,
-        username: req.user?.user_name ?? 'Guest'
+        username: req.user?.user_name ?? 'Guest',
+        isAdmin: req.user?.is_admin ?? false
       });
     })
     .catch((err) =>
@@ -391,7 +399,8 @@ exports.getFarmers = (req, res, next) =>
         pageTitle: "Admin Farmers",
         path: "/admin/farmers",
         isAuthenticated: req.session.isLoggedIn,
-        username: req.user?.user_name ?? 'Guest'
+        username: req.user?.user_name ?? 'Guest',
+        isAdmin: req.user?.is_admin ?? false
       });
     })
     .catch((err) =>

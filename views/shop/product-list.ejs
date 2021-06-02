@@ -3,82 +3,118 @@
     </head>
 
     <body>
-        <%- include('../includes/navigation.ejs') %>
+        <% if (isAuthenticated && isAdmin){ %>
+            <%- include('../includes/admin-nav.ejs') %>
+                <% } else { %>
+                    <%- include('../includes/navigation.ejs')
+                        %>
+                        <% } %>
 
-            <main>
-                <section id="posts">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <h1 class="font-weight-bold py-5">Categories</h1>
-                            <% if (categories.length>0) { %>
-                                <ul>
-                                    <% for (let category of
-                                        categories) {%>
-                                        <li>
-                                            <h6>
-                                                <%=
-                                                    category.category_name%>
-                                            </h6>
-                                        </li>
-                                        <% } %>
-                                </ul>
-                                <% } %>
-                        </div>
+                            <main>
+                                <section id="posts">
+                                    <div class="row">
+                                        <div
+                                            class="col-md-2">
+                                            <h1
+                                                class="font-weight-bold py-5">
+                                                Categories
+                                            </h1>
+                                            <% if
+                                                (categories.length>
+                                                0) { %>
+                                                <ul>
+                                                    <% for
+                                                        (let
+                                                        category
+                                                        of
+                                                        categories)
+                                                        {%>
+                                                        <li>
+                                                            <h6>
+                                                                <%=
+                                                                    category.category_name%>
+                                                            </h6>
+                                                        </li>
+                                                        <% }
+                                                            %>
+                                                </ul>
+                                                <% } %>
+                                        </div>
 
-                        <div class="col-md-10 py-5">
-                            <form class="search-container d-flex mb-5">
-                                <input class="form-control mr-2" type="search" placeholder="Search" aria-label="Search">
-                                <button class="btn btn-outline-success" type="submit">Search</button>
-                            </form>
-                            <% if (prods.length> 0) { %>
-                                <div class="grid">
-                                    <% for (let product of
-                                        prods) { %>
-                                        <article
-                                            class="card product-item">
-                                            <header
-                                                class="card__header">
-                                                <h1
-                                                    class="product__title">
-                                                    <%=product.title%>
-                                                </h1>
-                                            </header>
-                                            <div
-                                                class="card__image">
-                                                <img src="<%= product.small_image_url %>"
-                                                    alt="<%= product.title %>">
-                                            </div>
-                                            <div
-                                                class="card__content">
-                                                <h2
-                                                    class="product__price">
-                                                    $
-                                                    <%= product.price
-                                                        %>
-                                                </h2>
-                                                <p
-                                                    class="product__description">
-                                                    <%= product.short_description
-                                                        %>
-                                                </p>
-                                            </div>
-                                            <div
-                                                class="card__actions">
-                                                <a href="/products/<%= product.product_id %>"
-                                                    class="btn">Details</a>
-                                                <%- include('../includes/add-to-cart.ejs',{product:
-                                                    product})%>
-                                            </div>
-                                        </article>
-                                        <% } %>
-                                </div>
-                                <% } else { %>
-                                    <h1>No Products Found!
-                                    </h1>
-                                    <% } %>
-                        </div>
-                    </div>
+                                        <div
+                                            class="col-md-10 py-5">
+                                            <form
+                                                class="search-container d-flex mb-5">
+                                                <input
+                                                    class="form-control mr-2"
+                                                    type="search"
+                                                    placeholder="Search"
+                                                    aria-label="Search">
+                                                <button
+                                                    class="btn btn-outline-success"
+                                                    type="submit">Search</button>
+                                            </form>
+                                            <% if
+                                                (prods.length>
+                                                0) { %>
+                                                <div
+                                                    class="grid">
+                                                    <% for
+                                                        (let
+                                                        product
+                                                        of
+                                                        prods)
+                                                        { %>
+                                                        <article
+                                                            class="card product-item">
+                                                            <header
+                                                                class="card__header">
+                                                                <h1
+                                                                    class="product__title">
+                                                                    <%=product.title%>
+                                                                </h1>
+                                                            </header>
+                                                            <div
+                                                                class="card__image">
+                                                                <img src="<%= product.small_image_url %>"
+                                                                    alt="<%= product.title %>">
+                                                            </div>
+                                                            <div
+                                                                class="card__content">
+                                                                <h2
+                                                                    class="product__price">
+                                                                    $
+                                                                    <%= product.price
+                                                                        %>
+                                                                </h2>
+                                                                <p
+                                                                    class="product__description">
+                                                                    <%= product.short_description
+                                                                        %>
+                                                                </p>
+                                                            </div>
+                                                            <div
+                                                                class="card__actions">
+                                                                <a href="/products/<%= product.product_id %>"
+                                                                    class="btn">Details</a>
+                                                                <%- include('../includes/add-to-cart.ejs',{product:
+                                                                    product})%>
+                                                            </div>
+                                                        </article>
+                                                        <% }
+                                                            %>
+                                                </div>
+                                                <% } else {
+                                                    %>
+                                                    <h1>No
+                                                        Products
+                                                        Found!
+                                                    </h1>
+                                                    <% } %>
+                                        </div>
+                                    </div>
 
-                </section>
-            </main>
-            <%- include('../includes/end.ejs') %>
+                                </section>
+                            </main>
+                            <%- include('../includes/end.ejs')
+                                %>

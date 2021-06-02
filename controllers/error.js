@@ -4,6 +4,7 @@ exports.get404 = (req, res, next) =>
     pageTitle: 'Page Not Found',
     path: '/404',
     isAuthenticated: req.session.isLoggedIn,
-    username: req.user?.user_name ?? 'Guest'
+    username: req.user?.user_name ?? 'Guest',
+    isAdmin: req.user?.is_admin ?? false
   });
 };

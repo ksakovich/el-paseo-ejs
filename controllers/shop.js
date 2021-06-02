@@ -29,7 +29,8 @@ exports.getProducts = (req, res, next) =>
             pageTitle: "All Products",
             path: "/products",
             isAuthenticated: req.session.isLoggedIn,
-            username: req.user?.user_name ?? 'Guest'
+            username: req.user?.user_name ?? 'Guest',
+            isAdmin: req.user?.is_admin ?? false
           });
         })
         .catch((err) => console.log(err));
@@ -48,7 +49,8 @@ exports.getCategories = (req, res, next) =>
         pageTitle: "All Products",
         path: "/products",
         isAuthenticated: req.session.isLoggedIn,
-        username: req.user?.user_name ?? 'Guest'
+        username: req.user?.user_name ?? 'Guest',
+        isAdmin: req.user?.is_admin ?? false
       });
     })
     .catch((err) => console.log(err));
@@ -65,7 +67,8 @@ exports.getFarmers = (req, res, next) =>
         pageTitle: "Farmers",
         path: "/farmers",
         isAuthenticated: req.session.isLoggedIn,
-        username: req.user?.user_name ?? 'Guest'
+        username: req.user?.user_name ?? 'Guest',
+        isAdmin: req.user?.is_admin ?? false
       });
     })
     .catch((err) =>
@@ -107,7 +110,8 @@ exports.getSingleProduct = (req, res, next) =>
         pageTitle: singleProduct.title,
         path: "/products",
         isAuthenticated: req.session.isLoggedIn,
-        username: req.user?.user_name ?? 'Guest'
+        username: req.user?.user_name ?? 'Guest',
+        isAdmin: req.user?.is_admin ?? false
       });
     })
     .catch((err) =>
@@ -126,7 +130,8 @@ exports.getIndex = (req, res, next) =>
         pageTitle: "Shop",
         path: "/",
         isAuthenticated: req.session.isLoggedIn,
-        username: req.user?.user_name ?? 'Guest'
+        username: req.user?.user_name ?? 'Guest',
+        isAdmin: req.user?.is_admin ?? false
       });
     })
     .catch((err) =>
@@ -150,7 +155,8 @@ exports.getCart = (req, res, next) =>
             pageTitle: "Your Cart",
             products: cartProducts,
             isAuthenticated: req.session.isLoggedIn,
-            username: req.user?.user_name ?? 'Guest'
+            username: req.user?.user_name ?? 'Guest',
+            isAdmin: req.user?.is_admin ?? false
           });
         })
         .catch((err) => console.log(err));
@@ -238,7 +244,8 @@ exports.getOrders = (req, res, next) =>
         pageTitle: "Your Orders",
         orders: orders,
         isAuthenticated: req.session.isLoggedIn,
-        username: req.user?.user_name ?? 'Guest'
+        username: req.user?.user_name ?? 'Guest',
+        isAdmin: req.user?.is_admin ?? false
       });
     })
     .catch((err) =>
@@ -295,6 +302,7 @@ exports.getCheckout = (req, res, next) =>
     path: "/checkout",
     pageTitle: "Checkout",
     isAuthenticated: req.session.isLoggedIn,
-    username: req.user?.user_name ?? 'Guest'
+    username: req.user?.user_name ?? 'Guest',
+    isAdmin: req.user?.is_admin ?? false
   });
 };

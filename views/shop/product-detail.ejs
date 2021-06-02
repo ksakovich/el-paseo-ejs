@@ -2,39 +2,60 @@
     </head>
 
     <body>
-        <%- include('../includes/navigation.ejs') %>
-            <main class="centered">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-7">
-                            <img class="d-block w-100"
-                                src="<%= product.big_image_url %>"
-                                alt="<%= product.title %>">
-                        </div>
-                        <div class="col-md-5">
-                            <h1 class="product__title">
-                                <%= product.title %>
-                            </h1>
-                            <h6><b>Company Name</b></h6>
-                            <p>
-                                <%= product.short_description
-                                    %>
-                            </p>
-                            <h2 class="price">
-                                $<%= product.price %>
-                            </h2>
-                            <p> </p>
-                            <label
-                                for="many">Quantity:</label>
-                            <input type="number" id="many"
-                                name="many" min="1" max="10"
-                                value="1">
-                            <span class="card__actions">
-                                <%- include('../includes/add-to-cart.ejs',
-                                    {product: product}) %>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </main>
-            <%- include('../includes/end.ejs') %>
+        <% if (isAuthenticated && isAdmin){ %>
+            <%- include('../includes/admin-nav.ejs') %>
+                <% } else { %>
+                    <%- include('../includes/navigation.ejs')
+                        %>
+                        <% } %>
+                            <main class="centered">
+                                <div class="container">
+                                    <div class="row">
+                                        <div
+                                            class="col-md-7">
+                                            <img class="d-block w-100"
+                                                src="<%= product.big_image_url %>"
+                                                alt="<%= product.title %>">
+                                        </div>
+                                        <div
+                                            class="col-md-5">
+                                            <h1
+                                                class="product__title">
+                                                <%= product.title
+                                                    %>
+                                            </h1>
+                                            <h6><b>Company
+                                                    Name</b>
+                                            </h6>
+                                            <p>
+                                                <%= product.short_description
+                                                    %>
+                                            </p>
+                                            <h2
+                                                class="price">
+                                                $<%= product.price
+                                                    %>
+                                            </h2>
+                                            <p> </p>
+                                            <label
+                                                for="many">Quantity:</label>
+                                            <input
+                                                type="number"
+                                                id="many"
+                                                name="many"
+                                                min="1"
+                                                max="10"
+                                                value="1">
+                                            <span
+                                                class="card__actions">
+                                                <%- include('../includes/add-to-cart.ejs',
+                                                    {product:
+                                                    product})
+                                                    %>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </main>
+                            <%- include('../includes/end.ejs')
+                                %>

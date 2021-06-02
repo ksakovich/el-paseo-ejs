@@ -4,103 +4,123 @@
     </head>
 
     <body>
-        <%- include('../includes/navigation.ejs') %>
-            <!-- SHOWCASE SLIDER -->
-            <section id="showcase">
-                <div id="myCarousel"
-                    class="carousel slide mb-4"
-                    data-ride="carousel">
-                    <ol class="carousel-indicators">
-                        <li data-target="#myCarousel"
-                            data-slide-to="0"
-                            class="active"></li>
-                        <li data-target="#myCarousel"
-                            data-slide-to="1"></li>
-                        <li data-target="#myCarousel"
-                            data-slide-to="2"></li>
-                    </ol>
-                    <div class="carousel-inner">
-                        <div
-                            class="carousel-item carousel-image-1 active">
-                        </div>
-
-                        <div
-                            class="carousel-item carousel-image-2">
-                        </div>
-
-                        <div
-                            class="carousel-item carousel-image-3">
-                        </div>
-                    </div>
-
-                    <a href="#myCarousel" data-slide="prev"
-                        class="carousel-control-prev">
-                        <span
-                            class="carousel-control-prev-icon"></span>
-                    </a>
-
-                    <a href="#myCarousel" data-slide="next"
-                        class="carousel-control-next">
-                        <span
-                            class="carousel-control-next-icon"></span>
-                    </a>
-                </div>
-            </section>
-            <main>
-                <% if (prods.length> 0) { %>
-                    <div class="grid">
-                        <% for (let product of prods) { %>
-                            <article
-                                class="card product-item">
-                                <header
-                                    class="card__header">
-                                    <h1
-                                        class="product__title">
-                                        <%= product.title %>
-                                    </h1>
-                                </header>
-                                <div class="card__image">
-                                    <img src="<%= product.small_image_url %>"
-                                        alt="<%= product.title %>">
-                                </div>
-                                <div class="card__content">
-                                    <h2
-                                        class="product__price">
-                                        $<%= product.price
-                                            %>
-                                    </h2>
-                                    <p
-                                        class="product__description">
-                                        <%= product.short_description
-                                            %>
-                                    </p>
-                                </div>
-                                <div class="card__actions">
-                                    <%- include('../includes/add-to-cart.ejs',
-                                        {product: product})
-                                        %>
-                                </div>
-                            </article>
-                            <% } %>
-                    </div>
-                    <% } else { %>
-                        <h1>No Products Found!</h1>
+        <% if (isAuthenticated && isAdmin){ %>
+            <%- include('../includes/admin-nav.ejs') %>
+                <% } else { %>
+                    <%- include('../includes/navigation.ejs')
+                        %>
                         <% } %>
-            </main>
-            <%- include('../includes/end.ejs') %>
+                            <!-- SHOWCASE SLIDER -->
+                            <section id="showcase">
+                                <div id="myCarousel"
+                                    class="carousel slide mb-4"
+                                    data-ride="carousel">
+                                    <ol
+                                        class="carousel-indicators">
+                                        <li data-target="#myCarousel"
+                                            data-slide-to="0"
+                                            class="active">
+                                        </li>
+                                        <li data-target="#myCarousel"
+                                            data-slide-to="1">
+                                        </li>
+                                        <li data-target="#myCarousel"
+                                            data-slide-to="2">
+                                        </li>
+                                    </ol>
+                                    <div
+                                        class="carousel-inner">
+                                        <div
+                                            class="carousel-item carousel-image-1 active">
+                                        </div>
 
-                <script>
-                    // Configure Slider
-                    $('.carousel').carousel({
-                        interval: 6000,
-                        pause: 'hover'
-                    });
+                                        <div
+                                            class="carousel-item carousel-image-2">
+                                        </div>
 
-                    // Lightbox Init
-                    $(document).on('click', '[data-toggle="lightbox"]', function (event)
-                    {
-                        event.preventDefault();
-                        $(this).ekkoLightbox();
-                    });
+                                        <div
+                                            class="carousel-item carousel-image-3">
+                                        </div>
+                                    </div>
 
-                </script>
+                                    <a href="#myCarousel"
+                                        data-slide="prev"
+                                        class="carousel-control-prev">
+                                        <span
+                                            class="carousel-control-prev-icon"></span>
+                                    </a>
+
+                                    <a href="#myCarousel"
+                                        data-slide="next"
+                                        class="carousel-control-next">
+                                        <span
+                                            class="carousel-control-next-icon"></span>
+                                    </a>
+                                </div>
+                            </section>
+                            <main>
+                                <% if (prods.length> 0) { %>
+                                    <div class="grid">
+                                        <% for (let product
+                                            of prods) { %>
+                                            <article
+                                                class="card product-item">
+                                                <header
+                                                    class="card__header">
+                                                    <h1
+                                                        class="product__title">
+                                                        <%= product.title
+                                                            %>
+                                                    </h1>
+                                                </header>
+                                                <div
+                                                    class="card__image">
+                                                    <img src="<%= product.small_image_url %>"
+                                                        alt="<%= product.title %>">
+                                                </div>
+                                                <div
+                                                    class="card__content">
+                                                    <h2
+                                                        class="product__price">
+                                                        $<%= product.price
+                                                            %>
+                                                    </h2>
+                                                    <p
+                                                        class="product__description">
+                                                        <%= product.short_description
+                                                            %>
+                                                    </p>
+                                                </div>
+                                                <div
+                                                    class="card__actions">
+                                                    <%- include('../includes/add-to-cart.ejs',
+                                                        {product:
+                                                        product})
+                                                        %>
+                                                </div>
+                                            </article>
+                                            <% } %>
+                                    </div>
+                                    <% } else { %>
+                                        <h1>No Products
+                                            Found!</h1>
+                                        <% } %>
+                            </main>
+                            <%- include('../includes/end.ejs')
+                                %>
+
+                                <script>
+                                    // Configure Slider
+                                    $('.carousel').carousel({
+                                        interval: 6000,
+                                        pause: 'hover'
+                                    });
+
+                                    // Lightbox Init
+                                    $(document).on('click', '[data-toggle="lightbox"]', function (event)
+                                    {
+                                        event.preventDefault();
+                                        $(this).ekkoLightbox();
+                                    });
+
+                                </script>

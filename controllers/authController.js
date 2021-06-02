@@ -12,7 +12,8 @@ exports.getSignup = (req, res, next) =>
         path: '/signup',
         pageTitle: 'Signup',
         isAuthenticated: false,
-        username: req.user?.user_name ?? 'Guest'
+        username: req.user?.user_name ?? 'Guest',
+        isAdmin: req.user?.is_admin ?? false
     });
 };
 
@@ -71,15 +72,13 @@ exports.postSignup = (req, res, next) =>
 
 exports.getLogin = (req, res, next) =>
 {
-    console.log(req.session);
-    console.log(req.user);
-    console.log('isAuthenticated', req.session.isLoggedIn)
 
     res.render('auth/login', {
         pageTitle: "Login",
         path: "/login",
         isAuthenticated: req.session.isLoggedIn,
-        username: req.user?.user_name ?? 'Guest'
+        username: req.user?.user_name ?? 'Guest',
+        isAdmin: req.user?.is_admin ?? false
     });
 };
 

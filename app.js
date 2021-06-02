@@ -44,6 +44,7 @@ app.use((req, res, next) =>
         {
           req.user = user;
           req.user;
+          console.log('req.user->', req.user);
           next();
         })
         .catch((err) =>
