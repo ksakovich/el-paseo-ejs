@@ -26,10 +26,6 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(
   session({
     secret: "dummy keyboard cat",
-    // store: new SequelizeStore({
-    //     db: sequelize,
-    //     // table: "sessions"
-    // }),
     store: store,
     resave: false, // we support the touch method so per the express-session docs this should be set to false
     proxy: true, // if you do SSL outside of node.
@@ -37,22 +33,18 @@ app.use(
   })
 );
 
-
-// app.use(session({ secret: 'dummy secret', resave: false, saveUninitialized: false }));
-
 app.use((req, res, next) =>
 {
   if (!req.user)
   {
-    console.log('req.session.userId', req.session.userId)
     if (req.session.userId != null)
     {
-      User.findByPk(req.session.userId)
+      return User.findByPk(req.session.userId)
         .then((user) =>
         {
-          console.log('user', user)
-
           req.user = user;
+          req.user;
+          next();
         })
         .catch((err) =>
         {

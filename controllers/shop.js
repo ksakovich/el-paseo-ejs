@@ -118,9 +118,6 @@ exports.getSingleProduct = (req, res, next) =>
 
 exports.getIndex = (req, res, next) =>
 {
-  console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ user: ", req.user);
-  console.log("req.session.sid", req.session.sid)
-  console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&  session: ", req.session);
   Product.findAll()
     .then((products) =>
     {
@@ -191,9 +188,6 @@ exports.postCart = (req, res, next) =>
     })
     .then((product) =>
     {
-      console.log(fetchedCart);
-      console.log(product);
-
       return fetchedCart.addProduct(product, {
         logging: console.log,
         through: { quantity: newQuantity },

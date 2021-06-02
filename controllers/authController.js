@@ -87,16 +87,6 @@ exports.postLogin = (req, res, next) =>
 {
     const cookies = cookie.parse(req.headers.cookie || '');
     const sessionID = cookies['connect.sid'];
-    // User.findByPk(1)
-    //     .then((user) =>
-    //     {
-    //         req.user = user;
-    //         next();
-    //     })
-    //     .catch((err) =>
-    //     {
-    //         console.log(err);
-    //     });
 
     const insertedEmail = req.body.email;
     const insertedPassword = req.body.password;
@@ -117,45 +107,34 @@ exports.postLogin = (req, res, next) =>
             req.user = user;
             req.session.userId = req.user.user_id;
             return user
-                .then((user) =>
-                {
-                    user.getCart().then((cart) =>
-                    {
-                        if (cart)
-                        {
-                            console.log("rertiving cart");
-                            return cart;
-                        } else
-                        {
 
-                            console.log("crating a new cart in auth controller");
-                            return user.createCart();
-                        }
-                    });
-                }).catch(err =>
+        }).then((user) =>
+        {
+            user.getCart().then((cart) =>
+            {
+                if (cart)
                 {
-                    console.log(err);
-                });
+                    console.log("rertiving cart");
+                    return cart;
+                } else
+                {
+
+                    console.log("crating a new cart in auth controller");
+                    return user.createCart();
+                }
+            });
+        }).then(result =>
+        {
+            req.session.isLoggedIn = true;
+            req.session.save((err) =>
+            {
+                console.log(err);
+                res.redirect('/');
+            });
         }).catch(err =>
         {
             console.log(err);
-        });
-    // console.log('session', session);
-    // console.log('user', user);
-
-    // req.session.userId = req.user.user_id;
-
-    req.session.save(function (err)
-    {
-        console.log(err);
-    });
-
-    req.session.isLoggedIn = true;
-    req.session.save((err) =>
-    {
-        console.log(err);
-        res.redirect('/');
-    });
+        })
 };
 
 exports.postLogout = (req, res, next) =>
