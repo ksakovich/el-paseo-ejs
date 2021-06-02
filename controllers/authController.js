@@ -2,6 +2,7 @@ const { Session } = require("express-session");
 const sequelize = require('../util/sequelize');
 const SessionModel = require('../models/session');
 const cookie = require('cookie');
+const bcrypt = require('bcryptjs');
 
 const User = require('../models/user');
 
@@ -36,34 +37,41 @@ exports.postSignup = (req, res, next) =>
             console.log("++++++++++++++++++++++++++++++++ ERROR: Passwords do not match");
             return res.redirect('/signup');
         }
-        return User.create({
-            user_name: insertedUsername,
-            email: insertedEmail,
-            password: insertedPassword,
-            is_admin: isAdmin
-        }).then((user) =>
-        {
-            user.getCart().then((cart) =>
+        return bcrypt.hash(insertedPassword, 12)
+            .then(hashedPassword =>
             {
-                if (cart)
-                {
-                    console.log("rertiving cart");
-                    return cart;
-                } else
-                {
-
-                    console.log("crating a new cart in auth controller");
-                    return user.createCart();
-                }
+                return User.create({
+                    user_name: insertedUsername,
+                    email: insertedEmail,
+                    password: hashedPassword,
+                    is_admin: isAdmin
+                })
+                    .then((user) =>
+                    {
+                        user.getCart().then((cart) =>
+                        {
+                            if (cart)
+                            {
+                                console.log("rertiving cart");
+                                return cart;
+                            } else
+                            {
+                                console.log("crating a new cart in auth controller");
+                                return user.createCart();
+                            }
+                        });
+                    }).then(result =>
+                    {
+                        console.log("======== User was created ========");
+                        res.redirect("/login");
+                    }).catch(err =>
+                    {
+                        console.log(err);
+                    });
+            }).catch(err =>
+            {
+                console.log(err);
             });
-        }).then(result =>
-        {
-            console.log("======== User was created ========");
-            res.redirect("/login");
-        }).catch(err =>
-        {
-            console.log(err);
-        });
     }).catch(err =>
     {
         console.log(err);
@@ -93,23 +101,43 @@ exports.postLogin = (req, res, next) =>
     User.findOne({ where: { email: insertedEmail } })
         .then(user =>
         {
-            if (insertedPassword !== user.password)
-            {
-                console.log("++++++++++++++++++++++++++++++++ ERROR: Passwords do not match");
-                return res.redirect('/login');
-            }
             if (!user)
             {
                 console.log("++++++++++++++++++++++++++++++++ Error: user not found with this email ");
                 return res.redirect('/login');
             }
-            req.user = user;
-            req.session.userId = req.user.user_id;
-            return user
+            else
+            {
+                return user;
+            }
+
 
         }).then((user) =>
         {
-            user.getCart().then((cart) =>
+            return bcrypt.compare(insertedPassword, user.password)
+                .then(result =>
+                {
+                    if (result)
+                    {
+                        console.log("++++++++++++++++++++++++++++++++ : Passwords  match");
+                        req.user = user;
+                        req.session.userId = req.user.user_id;
+                    }
+
+                    else
+                    {
+                        console.log("++++++++++++++++++++++++++++++++ : Passwords DO NOT match");
+                        return res.redirect('/login');
+                    }
+                }).catch(err =>
+                {
+                    console.log(err);
+                    res.redirect('/login');
+                });
+        })
+        .then((result) =>
+        {
+            req.user.getCart().then((cart) =>
             {
                 if (cart)
                 {
@@ -134,6 +162,8 @@ exports.postLogin = (req, res, next) =>
         {
             console.log(err);
         })
+
+
 };
 
 exports.postLogout = (req, res, next) =>
