@@ -70,8 +70,9 @@
                                                                     value="<%= product.cart_item.quantity%>">
                                                             </td>
                                                             <td>$
-                                                                <%=
-                                                                    subtotal%>
+                                                                <%= product.price
+                                                                    *
+                                                                    product.cart_item.quantity;%>
                                                             </td>
                                                         </tr>
                                                         </tr>
