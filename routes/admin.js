@@ -6,38 +6,42 @@ const adminController = require("../controllers/admin");
 
 const router = express.Router();
 
+const { isAdmin } = require("../middleware/authentication-validation");
+
+const { isAuthenticated } = require("../middleware/authentication-validation");
+
 // /admin/add-product => GET
-router.get("/add-product", adminController.getAddProduct);
+router.get("/add-product", isAuthenticated, isAdmin, adminController.getAddProduct);
 
 // /admin/products => GET
-router.get("/products", adminController.getProducts);
+router.get("/products", isAuthenticated, isAdmin, adminController.getProducts);
 
 // /admin/add-product => POST
-router.post("/add-product", adminController.postAddProduct);
+router.post("/add-product", isAuthenticated, isAdmin, adminController.postAddProduct);
 
-router.get("/edit-product/:productId", adminController.getEditProduct);
+router.get("/edit-product/:productId", isAuthenticated, isAdmin, adminController.getEditProduct);
 
-router.post("/edit-product", adminController.postEditProduct);
+router.post("/edit-product", isAuthenticated, isAdmin, adminController.postEditProduct);
 
-router.post("/delete-product", adminController.postDeleteProduct);
+router.post("/delete-product", isAuthenticated, isAdmin, adminController.postDeleteProduct);
 
 // /admin/add-category => GET
-router.get("/add-category", adminController.getAddCategory);
+router.get("/add-category", isAuthenticated, isAdmin, adminController.getAddCategory);
 
-router.get("/categories", adminController.getCategories);
+router.get("/categories", isAuthenticated, isAdmin, adminController.getCategories);
 
-router.post("/add-category", adminController.postAddCategory);
+router.post("/add-category", isAuthenticated, isAdmin, adminController.postAddCategory);
 
-router.get("/edit-category/:categoryId", adminController.getEditCategory);
+router.get("/edit-category/:categoryId", isAuthenticated, isAdmin, adminController.getEditCategory);
 
-router.post("/edit-category", adminController.postEditCategory);
+router.post("/edit-category", isAuthenticated, isAdmin, adminController.postEditCategory);
 
-router.post("/delete-category", adminController.postDeleteCategory);
+router.post("/delete-category", isAuthenticated, isAdmin, adminController.postDeleteCategory);
 
 //Farmers
-router.get("/add-farmer", adminController.getAddFarmer);
+router.get("/add-farmer", isAuthenticated, isAdmin, adminController.getAddFarmer);
 
-router.get("/farmers", adminController.getFarmers);
+router.get("/farmers", isAuthenticated, isAdmin, adminController.getFarmers);
 
 router.post("/add-farmer", adminController.postAddFarmer);
 

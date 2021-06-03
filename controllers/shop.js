@@ -5,7 +5,7 @@ const DbFetcher = require("../util/dbFetcher");
 const Category = require("../models/category");
 const Farmer = require("../models/farmer");
 const Order = require("../models/order");
-const dbFetcher = new DbFetcher();
+// const dbFetcher = new DbFetcher();
 
 exports.getProducts = (req, res, next) =>
 {
