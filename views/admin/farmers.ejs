@@ -64,6 +64,9 @@
                                   action="/admin/delete-farmer"
                                   method="POST">
                                   <input type="hidden"
+                                    name="_csrf"
+                                    value=<%=csrfToken %> >
+                                  <input type="hidden"
                                     value="<%= result.farmer_id %>"
                                     name="farmer_id">
                                   <button class="btn"

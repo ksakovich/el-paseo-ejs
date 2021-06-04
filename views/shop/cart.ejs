@@ -9,9 +9,11 @@
                         %>
                         <% } %>
                             <main>
-                                <div class="d-flex align-items-center">
+                                <div
+                                    class="d-flex align-items-center">
                                     <% let subtotal=0 %>
-                                        <% if (products.length>
+                                        <% if
+                                            (products.length>
                                             0) { %>
                                             <div
                                                 class="small-container cart-page">
@@ -54,6 +56,12 @@
                                                                                 <form
                                                                                     action="/cart-delete-item"
                                                                                     method="POST">
+                                                                                    <input
+                                                                                        type="hidden"
+                                                                                        name="_csrf"
+                                                                                        value=<%=csrfToken
+                                                                                        %>
+                                                                                    >
                                                                                     <input
                                                                                         type="hidden"
                                                                                         value="<%= product.product_id %>"
@@ -118,6 +126,12 @@
                                                                             <form
                                                                                 action="/create-order"
                                                                                 method="POST">
+                                                                                <input
+                                                                                    type="hidden"
+                                                                                    name="_csrf"
+                                                                                    value=<%=csrfToken
+                                                                                    %>
+                                                                                >
                                                                                 <button
                                                                                     type="submit"
                                                                                     class="btn">Proceed
@@ -130,10 +144,12 @@
                                                             </table>
                                                 </div>
 
-                                                <% } else { %>
+                                                <% } else {
+                                                    %>
                                                     <h1>No
                                                         Products
-                                                        in Cart!
+                                                        in
+                                                        Cart!
                                                     </h1>
                                                     <% } %>
                                                         <div
@@ -144,7 +160,7 @@
                                                         </li>
 
                                                         </ul>
-                                </div>                        
+                                            </div>
                             </main>
                             <%- include('../includes/end.ejs')
                                 %>

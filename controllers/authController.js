@@ -12,9 +12,9 @@ exports.getSignup = (req, res, next) =>
     res.render('auth/signup', {
         path: '/signup',
         pageTitle: 'Signup',
-        isAuthenticated: false,
-        username: req.user?.user_name ?? 'Guest',
-        isAdmin: req.user?.is_admin ?? false
+        // isAuthenticated: false,
+        // username: req.user?.user_name ?? 'Guest',
+        // isAdmin: req.user?.is_admin ?? false
     });
 };
 
@@ -84,9 +84,9 @@ exports.getLogin = (req, res, next) =>
     res.render('auth/login', {
         pageTitle: "Login",
         path: "/login",
-        isAuthenticated: req.session.isLoggedIn,
-        username: req.user?.user_name ?? 'Guest',
-        isAdmin: req.user?.is_admin ?? false
+        // isAuthenticated: req.session.isLoggedIn,
+        // username: req.user?.user_name ?? 'Guest',
+        // isAdmin: req.user?.is_admin ?? false
     });
 };
 

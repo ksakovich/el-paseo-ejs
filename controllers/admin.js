@@ -11,9 +11,9 @@ exports.getAddProduct = (req, res, next) =>
     pageTitle: 'Add Product',
     path: '/admin/add-product',
     editing: false,
-    isAuthenticated: req.session.isLoggedIn,
-    username: req.user?.user_name ?? 'Guest',
-    isAdmin: req.user?.is_admin ?? false
+    // isAuthenticated: req.session.isLoggedIn,
+    // username: req.user?.user_name ?? 'Guest',
+    // isAdmin: req.user?.is_admin ?? false
   });
 };
 
@@ -74,9 +74,9 @@ exports.getEditProduct = (req, res, next) =>
       path: '/admin/edit-product',
       editing: editMode,
       product: product,
-      isAuthenticated: req.session.isLoggedIn,
-      username: req.user?.user_name ?? 'Guest',
-      isAdmin: req.user?.is_admin ?? false
+      // isAuthenticated: req.session.isLoggedIn,
+      // username: req.user?.user_name ?? 'Guest',
+      // isAdmin: req.user?.is_admin ?? false
     });
   })
 };
@@ -129,9 +129,9 @@ exports.getProducts = (req, res, next) =>
       prods: products,
       pageTitle: 'Admin Products',
       path: '/admin/products',
-      isAuthenticated: req.session.isLoggedIn,
-      username: req.user?.user_name ?? 'Guest',
-      isAdmin: req.user?.is_admin ?? false
+      // isAuthenticated: req.session.isLoggedIn,
+      // username: req.user?.user_name ?? 'Guest',
+      // isAdmin: req.user?.is_admin ?? false
     });
   }).catch(err =>
   {
@@ -167,9 +167,9 @@ exports.getAddCategory = (req, res, next) =>
     pageTitle: "Add Category",
     path: "/admin/add-category",
     editing: false,
-    isAuthenticated: req.session.isLoggedIn,
-    username: req.user?.user_name ?? 'Guest',
-    isAdmin: req.user?.is_admin ?? false
+    // isAuthenticated: req.session.isLoggedIn,
+    // username: req.user?.user_name ?? 'Guest',
+    // isAdmin: req.user?.is_admin ?? false
   });
 };
 
@@ -211,9 +211,9 @@ exports.getEditCategory = (req, res, next) =>
         path: "/admin/edit-category",
         editing: editMode,
         category: category,
-        isAuthenticated: req.session.isLoggedIn,
-        username: req.user?.user_name ?? 'Guest',
-        isAdmin: req.user?.is_admin ?? false
+        // isAuthenticated: req.session.isLoggedIn,
+        // username: req.user?.user_name ?? 'Guest',
+        // isAdmin: req.user?.is_admin ?? false
       });
     })
     .catch((err) =>
@@ -256,9 +256,9 @@ exports.getCategories = (req, res, next) =>
         categories: categories,
         pageTitle: "Admin Categories",
         path: "/admin/categories",
-        isAuthenticated: req.session.isLoggedIn,
-        username: req.user?.user_name ?? 'Guest',
-        isAdmin: req.user?.is_admin ?? false
+        // isAuthenticated: req.session.isLoggedIn,
+        // username: req.user?.user_name ?? 'Guest',
+        // isAdmin: req.user?.is_admin ?? false
       });
     })
     .catch((err) =>
@@ -293,9 +293,9 @@ exports.getAddFarmer = (req, res, next) =>
     pageTitle: "Add Farmer",
     path: "/admin/add-farmer",
     editing: false,
-    isAuthenticated: req.session.isLoggedIn,
-    username: req.user?.user_name ?? 'Guest',
-    isAdmin: req.user?.is_admin ?? false
+    // isAuthenticated: req.session.isLoggedIn,
+    // username: req.user?.user_name ?? 'Guest',
+    // isAdmin: req.user?.is_admin ?? false
   });
 };
 
@@ -347,9 +347,9 @@ exports.getEditFarmer = (req, res, next) =>
         path: "/admin/edit-farmer",
         editing: editMode,
         farmer: farmer,
-        isAuthenticated: req.session.isLoggedIn,
-        username: req.user?.user_name ?? 'Guest',
-        isAdmin: req.user?.is_admin ?? false
+        // isAuthenticated: req.session.isLoggedIn,
+        // username: req.user?.user_name ?? 'Guest',
+        // isAdmin: req.user?.is_admin ?? false
       });
     })
     .catch((err) =>
@@ -398,9 +398,9 @@ exports.getFarmers = (req, res, next) =>
         farmers: result,
         pageTitle: "Admin Farmers",
         path: "/admin/farmers",
-        isAuthenticated: req.session.isLoggedIn,
-        username: req.user?.user_name ?? 'Guest',
-        isAdmin: req.user?.is_admin ?? false
+        // isAuthenticated: req.session.isLoggedIn,
+        // username: req.user?.user_name ?? 'Guest',
+        // isAdmin: req.user?.is_admin ?? false
       });
     })
     .catch((err) =>

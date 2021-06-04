@@ -2,6 +2,7 @@ const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
 const session = require("express-session");
+const csrf = require('csurf');
 // const SequelizeStore = require("connect-session-sequelize")(session.Store);
 const sequelize = require("./util/sequelize");
 const { store, Session } = require('./models/session');
@@ -9,6 +10,7 @@ const { SessionModel } = require('./models/session');
 const errorController = require("./controllers/error");
 
 const app = express();
+const csrfProtection = csrf();
 console.log("STARTING THE APP");
 
 app.set("view engine", "ejs");
@@ -32,7 +34,7 @@ app.use(
     saveUninitialized: true,
   })
 );
-
+app.use(csrfProtection);
 app.use((req, res, next) =>
 {
   if (!req.user)
@@ -56,6 +58,19 @@ app.use((req, res, next) =>
   next();
 });
 
+app.use((req, res, next) =>
+{
+
+  // isAuthenticated: req.session.isLoggedIn,
+  //       username: req.user?.user_name ?? 'Guest',
+  //       isAdmin: req.user?.is_admin ?? false,
+  //       csrfTocken: req.csrfTocken
+  res.locals.isAuthenticated = req.session.isLoggedIn;
+  res.locals.username = req.user?.user_name ?? 'Guest';
+  res.locals.isAdmin = req.user?.is_admin ?? false;
+  res.locals.csrfToken = req.csrfToken();
+  next();
+})
 
 app.use("/admin", adminRoutes);
 app.use(shopRoutes);

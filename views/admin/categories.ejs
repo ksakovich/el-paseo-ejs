@@ -32,6 +32,12 @@
                                                             method="POST">
                                                             <input
                                                                 type="hidden"
+                                                                name="_csrf"
+                                                                value=<%=csrfToken
+                                                                %>
+                                                            >
+                                                            <input
+                                                                type="hidden"
                                                                 value="<%= category.category_id %>"
                                                                 name=category_id>
                                                             <button

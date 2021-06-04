@@ -28,9 +28,9 @@ exports.getProducts = (req, res, next) =>
             categories: categories,
             pageTitle: "All Products",
             path: "/products",
-            isAuthenticated: req.session.isLoggedIn,
-            username: req.user?.user_name ?? 'Guest',
-            isAdmin: req.user?.is_admin ?? false
+            // isAuthenticated: req.session.isLoggedIn,
+            // username: req.user?.user_name ?? 'Guest',
+            // isAdmin: req.user?.is_admin ?? false
           });
         })
         .catch((err) => console.log(err));
@@ -48,9 +48,9 @@ exports.getCategories = (req, res, next) =>
         categories: categories,
         pageTitle: "All Products",
         path: "/products",
-        isAuthenticated: req.session.isLoggedIn,
-        username: req.user?.user_name ?? 'Guest',
-        isAdmin: req.user?.is_admin ?? false
+        // isAuthenticated: req.session.isLoggedIn,
+        // username: req.user?.user_name ?? 'Guest',
+        // isAdmin: req.user?.is_admin ?? false
       });
     })
     .catch((err) => console.log(err));
@@ -66,9 +66,9 @@ exports.getFarmers = (req, res, next) =>
         farmers: farmers,
         pageTitle: "Farmers",
         path: "/farmers",
-        isAuthenticated: req.session.isLoggedIn,
-        username: req.user?.user_name ?? 'Guest',
-        isAdmin: req.user?.is_admin ?? false
+        // isAuthenticated: req.session.isLoggedIn,
+        // username: req.user?.user_name ?? 'Guest',
+        // isAdmin: req.user?.is_admin ?? false
       });
     })
     .catch((err) =>
@@ -109,9 +109,9 @@ exports.getSingleProduct = (req, res, next) =>
         product: singleProduct.dataValues,
         pageTitle: singleProduct.title,
         path: "/products",
-        isAuthenticated: req.session.isLoggedIn,
-        username: req.user?.user_name ?? 'Guest',
-        isAdmin: req.user?.is_admin ?? false
+        // isAuthenticated: req.session.isLoggedIn,
+        // username: req.user?.user_name ?? 'Guest',
+        // isAdmin: req.user?.is_admin ?? false
       });
     })
     .catch((err) =>
@@ -129,9 +129,10 @@ exports.getIndex = (req, res, next) =>
         prods: products,
         pageTitle: "Shop",
         path: "/",
-        isAuthenticated: req.session.isLoggedIn,
-        username: req.user?.user_name ?? 'Guest',
-        isAdmin: req.user?.is_admin ?? false
+        // isAuthenticated: req.session.isLoggedIn,
+        // username: req.user?.user_name ?? 'Guest',
+        // isAdmin: req.user?.is_admin ?? false,
+        // csrfToken: req.csrfToken()
       });
     })
     .catch((err) =>
@@ -154,9 +155,9 @@ exports.getCart = (req, res, next) =>
             path: "/cart",
             pageTitle: "Your Cart",
             products: cartProducts,
-            isAuthenticated: req.session.isLoggedIn,
-            username: req.user?.user_name ?? 'Guest',
-            isAdmin: req.user?.is_admin ?? false
+            // isAuthenticated: req.session.isLoggedIn,
+            // username: req.user?.user_name ?? 'Guest',
+            // isAdmin: req.user?.is_admin ?? false
           });
         })
         .catch((err) => console.log(err));
@@ -169,11 +170,14 @@ exports.postCart = (req, res, next) =>
   const prodId = req.body.productId;
   let fetchedCart;
   let newQuantity = 1;
+  console.log("---------------------------------------------- Requesring user")
   req.user
     .getCart()
     .then((cart) =>
     {
+      console.log("---------------------------------------------- Fetched cart")
       fetchedCart = cart;
+      console.log("---------------------------------------------- Getting products in the cart")
       return cart.getProducts({ where: { product_id: prodId } });
     })
     .then((products) =>
@@ -243,9 +247,9 @@ exports.getOrders = (req, res, next) =>
         path: "/orders",
         pageTitle: "Your Orders",
         orders: orders,
-        isAuthenticated: req.session.isLoggedIn,
-        username: req.user?.user_name ?? 'Guest',
-        isAdmin: req.user?.is_admin ?? false
+        // isAuthenticated: req.session.isLoggedIn,
+        // username: req.user?.user_name ?? 'Guest',
+        // isAdmin: req.user?.is_admin ?? false
       });
     })
     .catch((err) =>
@@ -301,8 +305,8 @@ exports.getCheckout = (req, res, next) =>
   res.render("shop/checkout", {
     path: "/checkout",
     pageTitle: "Checkout",
-    isAuthenticated: req.session.isLoggedIn,
-    username: req.user?.user_name ?? 'Guest',
-    isAdmin: req.user?.is_admin ?? false
+    // isAuthenticated: req.session.isLoggedIn,
+    // username: req.user?.user_name ?? 'Guest',
+    // isAdmin: req.user?.is_admin ?? false
   });
 };
