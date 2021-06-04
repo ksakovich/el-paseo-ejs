@@ -30,8 +30,8 @@ router.post("/cart-delete-item", isAuthenticated, shopController.postCartDeleteP
 
 router.get("/orders", isAuthenticated, shopController.getOrders);
 
-// router.post("/create-order", isAuthenticated, shopController.postOrder);
+router.post("/create-order", isAuthenticated, shopController.postOrder);
 
-// router.get("/checkout", isAuthenticated, shopController.getCheckout);
+router.get("/checkout", isAuthenticated, shopController.getCheckout);
 
 module.exports = router;
