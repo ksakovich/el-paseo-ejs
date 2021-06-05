@@ -6,26 +6,45 @@
         <%- include('../includes/navigation.ejs') %>
 
             <main>
-                <form class="login-form" action="/login"
-                    method="POST">
-                    <input type="hidden" name="_csrf"
-                        value=<%=csrfToken %> >
-                    <div class="form-control">
-                        <label for="email">E-mail</label>
-                        <input type="email" name="email"
-                            id="email" required>
+                <% if(errorMessage.length> 0 ){ %>
+                    <div class=" alert alert-warning
+                    alert-dismissible fade show"
+                        role="alert">
+                        <strong>ERROR: <%=errorMessage %>
+                        </strong>
+
+                        <button type="button" class="close"
+                            data-dismiss="alert"
+                            aria-label="Close">
+                            <span
+                                aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    <div class="form-control">
-                        <label
-                            for="password">Password</label>
-                        <input type="password"
-                            name="password" id="password"
-                            required>
-                    </div>
+                    <% } %>
+                        <form class="login-form"
+                            action="/login" method="POST">
+                            <input type="hidden"
+                                name="_csrf"
+                                value=<%=csrfToken %> >
+                            <div class="form-control">
+                                <label
+                                    for="email">E-mail</label>
+                                <input type="email"
+                                    name="email" id="email"
+                                    required>
+                            </div>
+                            <div class="form-control">
+                                <label
+                                    for="password">Password</label>
+                                <input type="password"
+                                    name="password"
+                                    id="password" required>
+                            </div>
 
 
-                    <button class="btn" type="submit">Login
-                    </button>
-                </form>
+                            <button class="btn"
+                                type="submit">Login
+                            </button>
+                        </form>
             </main>
             <%- include('../includes/end.ejs') %>

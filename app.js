@@ -3,11 +3,13 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const csrf = require('csurf');
+const flash = require('connect-flash');
 // const SequelizeStore = require("connect-session-sequelize")(session.Store);
 const sequelize = require("./util/sequelize");
 const { store, Session } = require('./models/session');
 const { SessionModel } = require('./models/session');
 const errorController = require("./controllers/error");
+const cookieParser = require('cookie-parser')
 
 const app = express();
 const csrfProtection = csrf();
@@ -25,6 +27,7 @@ const Associations = require("./util/associations");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
+app.use(cookieParser('keyboard cat'));
 app.use(
   session({
     secret: "dummy keyboard cat",
@@ -32,9 +35,13 @@ app.use(
     resave: false, // we support the touch method so per the express-session docs this should be set to false
     proxy: true, // if you do SSL outside of node.
     saveUninitialized: true,
+    cookie: { maxAge: 60000 }
   })
 );
+
 app.use(csrfProtection);
+app.use(flash());
+
 app.use((req, res, next) =>
 {
   if (!req.user)
