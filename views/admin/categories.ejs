@@ -10,45 +10,47 @@
                         %>
                         <% } %>
                             <% if (categories.length>0) { %>
-                                <div
-                                    class="py-5 border-bottom ml-5">
-                                    <h3
-                                        class="font-weight-bold">
-                                        Categories</h3>
-                                    <% for (let category of
-                                        categories) { %>
-                                        <ul
-                                            class="list-group">
-                                            <li
-                                                class="list-group-item list-group-item-action d-flex justify-content-between align-items-center category">
-                                                <%= category.category_name
-                                                    %>
-                                                    <span
-                                                        class="card-actions">
-                                                        <a href="/admin/edit-category/<%= category.category_id %>?edit=true"
-                                                            class="btn">Edit</a>
-                                                        <form
-                                                            action="/admin/delete-category"
-                                                            method="POST">
-                                                            <input
-                                                                type="hidden"
-                                                                name="_csrf"
-                                                                value=<%=csrfToken
-                                                                %>
-                                                            >
-                                                            <input
-                                                                type="hidden"
-                                                                value="<%= category.category_id %>"
-                                                                name=category_id>
-                                                            <button
-                                                                class="btn"
-                                                                type="submit">Delete</button>
-                                                        </form>
-                                                    </span>
-                                            </li>
-                                        </ul>
-                                        <% } %>
-                                </div>
+                                <div class="container p-3 my-3">
+                                    <div
+                                        class="py-5 border-bottom ml-5">
+                                        <h3
+                                            class="font-weight-bold mb-3">
+                                            Categories</h3>
+                                        <% for (let category of
+                                            categories) { %>
+                                            <ul
+                                                class="list-group">
+                                                <li
+                                                    class="list-group-item list-group-item-action d-flex justify-content-between align-items-center category">
+                                                    <%= category.category_name
+                                                        %>
+                                                        <span
+                                                            class="card-actions">
+                                                            <a href="/admin/edit-category/<%= category.category_id %>?edit=true"
+                                                                class="btn">Edit</a>
+                                                            <form
+                                                                action="/admin/delete-category"
+                                                                method="POST">
+                                                                <input
+                                                                    type="hidden"
+                                                                    name="_csrf"
+                                                                    value=<%=csrfToken
+                                                                    %>
+                                                                >
+                                                                <input
+                                                                    type="hidden"
+                                                                    value="<%= category.category_id %>"
+                                                                    name=category_id>
+                                                                <button
+                                                                    class="btn"
+                                                                    type="submit">Delete</button>
+                                                            </form>
+                                                        </span>
+                                                </li>
+                                            </ul>
+                                            <% } %>
+                                    </div>
+                                </div>    
                                 <% } else { %>
                                     <h1>No Categories Found!
                                     </h1>

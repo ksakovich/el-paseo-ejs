@@ -32,17 +32,17 @@ body {
 }
 
 .carousel-image-1 {
-  background: url("/images/image2.jpg");
+  background: url("/images/image4.jpg");
   background-size: cover;
 }
 
 .carousel-image-2 {
-  background: url("/images/image1.jpg");
+  background: url("/images/image6.jpg");
   background-size: cover;
 }
 
 .carousel-image-3 {
-  background: url("/images/image3.jpg");
+  background: url("/images/image7.jpg");
   background-size: cover;
 }
 
@@ -224,7 +224,7 @@ form {
   display: inline-block;
   padding: 0.25rem 1rem;
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 500;
   border: 1px solid #48b83e;
   color: #fff;
   background: #48b83e;
@@ -320,8 +320,8 @@ td a {
   font-size: 12px;
 }
 td img {
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
   margin-right: 10px;
 }
 .total-price {
@@ -345,8 +345,8 @@ th:last-child {
 }
 
 .search-container {
-  float: center;
-  margin-left: 45rem;
+  margin-right: 50rem;
+  margin-left: 2rem;
 }
 
 .card-body img {

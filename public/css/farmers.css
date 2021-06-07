@@ -2,9 +2,14 @@
   margin-top: -50px;
 }
 #authors .card:hover {
-  background: #f59a22;
+  background: #ec9d3b;
   color: #fff;
 }
 #authors .fab {
   color: #fff;
+}
+
+a {
+  color: #fff;
+  text-decoration: none;
 }

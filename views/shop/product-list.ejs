@@ -29,7 +29,7 @@
                                                         of
                                                         categories)
                                                         {%>
-                                                        <li>
+                                                        <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center category">
                                                             <h6>
                                                                 <%=
                                                                     category.category_name%>
@@ -44,9 +44,10 @@
                                         <div
                                             class="col-md-10 py-5">
                                             <form
-                                                class="search-container d-flex mb-5">
+                                                class="form-inline ml-5 pb-3">
                                                 <input
-                                                    class="form-control mr-2"
+                                                    class="form-control mr-3"
+                                                    id="myInput"
                                                     type="search"
                                                     placeholder="Search"
                                                     aria-label="Search">
@@ -58,7 +59,7 @@
                                                 (prods.length>
                                                 0) { %>
                                                 <div
-                                                    class="grid">
+                                                    class="grid" id=myList>
                                                     <% for
                                                         (let
                                                         product
@@ -118,3 +119,14 @@
                             </main>
                             <%- include('../includes/end.ejs')
                                 %>
+
+                            <script>
+                                $(document).ready(function(){
+                                        $("#myInput").on("keyup", function() {
+                                            var value = $(this).val().toLowerCase();
+                                            $("#myList article").filter(function() {
+                                                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                                            });
+                                        });
+                                    });
+                            </script>    
