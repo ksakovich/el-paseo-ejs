@@ -1,4 +1,5 @@
 const path = require("path");
+const fs = require('fs');
 const express = require("express");
 const bodyParser = require("body-parser");
 const session = require("express-session");
@@ -9,7 +10,9 @@ const sequelize = require("./util/sequelize");
 const { store, Session } = require('./models/session');
 const { SessionModel } = require('./models/session');
 const errorController = require("./controllers/error");
-const cookieParser = require('cookie-parser')
+const cookieParser = require('cookie-parser');
+const compression = require('compression');
+const morgan = require('morgan');
 
 const app = express();
 const csrfProtection = csrf();
@@ -18,9 +21,17 @@ console.log("STARTING THE APP");
 app.set("view engine", "ejs");
 app.set("views", "views");
 
+
+
 const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
 const authRoutes = require("./routes/auth.js");
+
+const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
+app.use(compression());
+app.use(morgan('combined'
+  , { stream: accessLogStream }
+))
 
 const User = require("./models/user");
 const Associations = require("./util/associations");
@@ -30,7 +41,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cookieParser('keyboard cat'));
 app.use(
   session({
-    secret: "dummy keyboard cat",
+    secret: process.env.SECRET,
     store: store,
     resave: false, // we support the touch method so per the express-session docs this should be set to false
     proxy: true, // if you do SSL outside of node.
@@ -67,11 +78,6 @@ app.use((req, res, next) =>
 
 app.use((req, res, next) =>
 {
-
-  // isAuthenticated: req.session.isLoggedIn,
-  //       username: req.user?.user_name ?? 'Guest',
-  //       isAdmin: req.user?.is_admin ?? false,
-  //       csrfTocken: req.csrfTocken
   res.locals.isAuthenticated = req.session.isLoggedIn;
   res.locals.username = req.user?.user_name ?? 'Guest';
   res.locals.isAdmin = req.user?.is_admin ?? false;
@@ -94,9 +100,6 @@ sequelize
   .sync()
   .then((result) =>
   {
-    // console.log("req.session.user._id", req.session.user._id);
-    // return User.findByPk(req.session.user._id);
-    // return User.findByPk(1);
   })
   // .then((user) =>
   // {
@@ -141,7 +144,7 @@ sequelize
     console.log();
     console.log();
 
-    return app.listen(3000);
+    return app.listen(process.env.PORT || 3000);
 
   })
   .catch((error) =>
