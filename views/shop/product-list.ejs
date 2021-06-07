@@ -22,22 +22,22 @@
                                             <% if
                                                 (categories.length>
                                                 0) { %>
-                                                <ul>
+                                                <div>
                                                     <% for
                                                         (let
                                                         category
                                                         of
                                                         categories)
                                                         {%>
-                                                        <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center category">
+                                                        <a class="list-group-item list-group-item-action ">
                                                             <h6>
                                                                 <%=
                                                                     category.category_name%>
                                                             </h6>
-                                                        </li>
+                                                        </a>
                                                         <% }
                                                             %>
-                                                </ul>
+                                                    </div>
                                                 <% } %>
                                         </div>
 
