@@ -29,12 +29,4 @@ exports.associate = () =>
 
   Order.belongsTo(User, { constrains: true, onDelete: 'CASCADE' });
   User.hasMany(Order);
-
-  //TODO: product -> category
-
-  //TODO: account ->user
-
-  //TODO: product -> order
-
-  //TODO: order -> user
 };

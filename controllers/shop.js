@@ -198,6 +198,16 @@ exports.postCart = (req, res, next) =>
     })
     .then((product) =>
     {
+      let oldQuantity = product.quantity_in_stock;
+      if (oldQuantity <= 0)
+      {
+        console.log("Item's quantity is zero or less", oldQuantity - 1);
+      }
+      if (oldQuantity > 0)
+      {
+        Product.decrement('quantity_in_stock', { where: { quantity_in_stock: oldQuantity } });
+        console.log(" ********** *********** ************** ", product.title, " is reduced ", oldQuantity);
+      }
       return fetchedCart.addProduct(product, {
         logging: console.log,
         through: { quantity: newQuantity },
